@@ -114,5 +114,3 @@ alias gcm="git commit -m"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# Created by `pipx` on 2024-04-13 23:15:37
-export PATH="$PATH:/Users/seanmcfall/.local/bin"
