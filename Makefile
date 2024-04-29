@@ -9,6 +9,7 @@ setup-zsh:
 setup-tmux:
 	brew install tmux
 	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+	# open tmux, <leader>I to install plugins
 
 setup-nvim:
 	brew tap homebrew/cask-fonts
