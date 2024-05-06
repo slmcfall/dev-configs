@@ -1,12 +1,13 @@
 return {
   'linux-cultist/venv-selector.nvim',
-  dependencies = { 
+  dependencies = {
     'neovim/nvim-lspconfig',
-    'nvim-telescope/telescope.nvim', 
-    'mfussenegger/nvim-dap-python' 
+    'nvim-telescope/telescope.nvim',
+    'mfussenegger/nvim-dap-python'
   },
   config = function()
     require('venv-selector').setup {
+      parents = 1,
       poetry_path = '/Users/seanmcfall/Library/Caches/pypoetry/virtualenvs',
     }
   end,
