@@ -17,3 +17,9 @@ setup-nvim:
 	brew install neovim
 	brew install ripgrep
 	brew install node
+
+setup-python:
+	# install poetry venv in this repo
+	# update init.lua with path of that venv
+	brew install fd
+	# open python file, <Leader>vs, select environment
