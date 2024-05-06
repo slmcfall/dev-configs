@@ -49,6 +49,14 @@ return {
       },
     }
 
+    local function venv()
+      local venv_get = require('venv-selector').get_active_venv()
+      if venv_get == nil or venv_get == '' then
+        venv_get = ''
+      end
+      return venv_get
+    end
+
     -- configure lualine with modified theme
     lualine.setup({
       options = {
@@ -56,6 +64,10 @@ return {
       },
       sections = {
         lualine_x = {
+          {
+            venv,
+            color = { fg = "#e0af68"},
+          },
           {
             lazy_status.updates,
             cond = lazy_status.has_updates,
