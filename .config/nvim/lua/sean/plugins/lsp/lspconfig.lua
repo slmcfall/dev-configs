@@ -91,7 +91,7 @@ return {
           capabilities = capabilities,
           filetypes = {"python"}
         })
-      end, 
+      end,
       ["lua_ls"] = function()
         -- configure lua server (with special settings)
         lspconfig["lua_ls"].setup({
@@ -109,7 +109,6 @@ return {
           },
         })
       end,
-      
     })
   end,
 }
