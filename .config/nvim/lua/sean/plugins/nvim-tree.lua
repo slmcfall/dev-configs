@@ -13,6 +13,9 @@ return {
         width = 35,
         relativenumber = true,
       },
+      sort = {
+        files_first = true,
+      },
       -- change folder arrow icons
       renderer = {
         indent_markers = {
