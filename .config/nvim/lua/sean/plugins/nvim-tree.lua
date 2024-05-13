@@ -41,7 +41,7 @@ return {
         },
       },
       filters = {
-        custom = { ".DS_Store" },
+        custom = { ".DS_Store", "__pycache__" },
       },
       git = {
         ignore = false,

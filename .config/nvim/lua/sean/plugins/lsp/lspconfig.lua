@@ -4,7 +4,7 @@ return {
   dependencies = {
     "hrsh7th/cmp-nvim-lsp",
     { "antosha417/nvim-lsp-file-operations", config = true },
-    { "folke/neodev.nvim", opts = {} },
+    { "folke/neodev.nvim",                   opts = {} },
   },
   config = function()
     -- import lspconfig plugin
@@ -24,6 +24,7 @@ return {
         -- Buffer local mappings.
         -- See `:help vim.lsp.*` for documentation on any of the below functions
         local opts = { buffer = ev.buf, silent = true }
+        local client = vim.lsp.get_client_by_id(ev.data.client_id)
 
         -- set keybinds
         opts.desc = "Show LSP references"
@@ -64,6 +65,17 @@ return {
 
         opts.desc = "Restart LSP"
         keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
+
+        if client.supports_method("textDocument/formatting") then
+          opts.desc = "Format buffer"
+          keymap.set("n", "<leader>zz", vim.lsp.buf.format, opts)
+          vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+            buffer = ev.buf,
+            callback = function()
+              vim.lsp.buf.format({ async = false })
+            end,
+          })
+        end
       end,
     })
 
@@ -85,13 +97,35 @@ return {
           capabilities = capabilities,
         })
       end,
-      ["pyright"] = function()
-      -- configure pyright server
-        lspconfig["pyright"].setup({
+
+      ["ruff"] = function()
+        -- configure ruff server
+        lspconfig["ruff"].setup({
           capabilities = capabilities,
-          filetypes = {"python"}
+          filetypes = { "python" },
         })
       end,
+
+      ["pyright"] = function()
+        -- configure pyright server
+        lspconfig["pyright"].setup({
+          capabilities = capabilities,
+          filetypes = { "python" },
+          settings = {
+            pyright = {
+              -- Using Ruff's import organizer
+              disableOrganizeImports = true,
+            },
+            python = {
+              analysis = {
+                -- Ignore all files for analysis to exclusively use Ruff for linting
+                ignore = { '*' },
+              },
+            },
+          },
+        })
+      end,
+
       ["lua_ls"] = function()
         -- configure lua server (with special settings)
         lspconfig["lua_ls"].setup({

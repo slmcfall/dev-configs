@@ -25,7 +25,8 @@ return {
       -- list of servers for mason to install
       ensure_installed = {
         "pyright",
-        "lua_ls"
+        "lua_ls",
+        "ruff"
       },
     })
   end,
