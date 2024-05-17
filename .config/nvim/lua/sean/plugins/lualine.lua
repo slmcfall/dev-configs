@@ -13,7 +13,7 @@ return {
       red = "#FF4A4A",
       fg = "#c3ccdc",
       bg = "#112638",
-      inactive_bg = "#2c3043",
+      inactive_bg = "#011728",
     }
 
     local my_lualine_theme = {
@@ -43,9 +43,9 @@ return {
         c = { bg = colors.bg, fg = colors.fg },
       },
       inactive = {
-        a = { bg = colors.inactive_bg, fg = colors.semilightgray, gui = "bold" },
-        b = { bg = colors.inactive_bg, fg = colors.semilightgray },
-        c = { bg = colors.inactive_bg, fg = colors.semilightgray },
+        a = { bg = colors.inactive_bg, fg = colors.inactive_bg, gui = "bold" },
+        b = { bg = colors.inactive_bg, fg = colors.inactive_bg },
+        c = { bg = colors.inactive_bg, fg = colors.inactive_bg },
       },
     }
 
@@ -61,12 +61,13 @@ return {
     lualine.setup({
       options = {
         theme = my_lualine_theme,
+        disabled_filetypes = { 'NvimTree' },
       },
       sections = {
         lualine_x = {
           {
             venv,
-            color = { fg = "#e0af68"},
+            color = { fg = "#e0af68" },
           },
           {
             lazy_status.updates,
