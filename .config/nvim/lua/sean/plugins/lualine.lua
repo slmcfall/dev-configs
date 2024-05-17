@@ -48,11 +48,16 @@ return {
         c = { bg = colors.inactive_bg, fg = colors.inactive_bg },
       },
     }
+    local function get_last_path_part(file_path)
+      return file_path:match("([^/]+)$") -- Match any characters except / until the end
+    end
 
     local function venv()
       local venv_get = require('venv-selector').get_active_venv()
       if venv_get == nil or venv_get == '' then
         venv_get = ''
+      else
+        venv_get = get_last_path_part(venv_get)
       end
       return venv_get
     end
@@ -61,23 +66,21 @@ return {
     lualine.setup({
       options = {
         theme = my_lualine_theme,
-        disabled_filetypes = { 'NvimTree' },
+        disabled_filetypes = { tabline = { 'NvimTree' } },
       },
-      sections = {
+      sections = {},
+      inactive_sections = {},
+      tabline = {
         lualine_x = {
           {
             venv,
             color = { fg = "#e0af68" },
           },
-          {
-            lazy_status.updates,
-            cond = lazy_status.has_updates,
-            color = { fg = "#ff9e64" },
-          },
-          { "encoding" },
           { "fileformat" },
           { "filetype" },
         },
+        lualine_y = { 'branch', 'diff', 'diagnostics' },
+        lualine_z = { 'mode' }
       },
     })
   end,
