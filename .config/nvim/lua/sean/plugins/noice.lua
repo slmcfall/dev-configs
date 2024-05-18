@@ -9,6 +9,9 @@ return {
     local enable_conceal = false -- Hide command text if true
 
     require("noice").setup({
+      presets = {
+        -- command_palette = true,
+      },
 
       messages = { enabled = true, view = "mini" },
 

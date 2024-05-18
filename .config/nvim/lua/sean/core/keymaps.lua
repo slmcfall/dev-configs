@@ -4,7 +4,17 @@ vim.g.mapleader = " "
 local keymap = vim.keymap -- for conciseness
 
 --------------------------------------
--- General Keymaps -------------------
+-- general ---------------------------
+--------------------------------------
+keymap.set("n", "<C-u>", "<Nop>")
+keymap.set("n", "<C-p>", "<Nop>")
+
+keymap.set("n", "<C-u>", ":bprevious<cr>")
+keymap.set("n", "<C-p>", ":bnext<cr>")
+
+
+--------------------------------------
+-- general ---------------------------
 --------------------------------------
 
 -- use kj to exit insert mode
@@ -20,7 +30,9 @@ keymap.set("n", "x", '"_x')
 keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number" }) -- increment
 keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number" }) -- decrement
 
--- window management
+--------------------------------------
+-- window management -----------------
+--------------------------------------
 
 -- SPLITS
 -- open select file in tree in new VERTICAL split: ctrl+v

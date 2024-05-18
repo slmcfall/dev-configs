@@ -107,6 +107,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias gs="git status"
+alias gss="git status -s"
 alias gcm="git commit -m"
 alias gpsuo="git push --set-upstream origin"
 
