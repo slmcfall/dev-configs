@@ -108,8 +108,11 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias gs="git status"
 alias gcm="git commit -m"
+alias gpsuo="git push --set-upstream origin"
 
-
+alias dc="cd ~/.config/nvim"
+alias wrk="cd ~/workspace"
+alias n.="nvim ."
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

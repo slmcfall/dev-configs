@@ -7,11 +7,11 @@ local keymap = vim.keymap -- for conciseness
 -- General Keymaps -------------------
 --------------------------------------
 
--- use jk to exit insert mode
-keymap.set("i", "jk", "<ESC>", { desc = "Exit insert mode with jk" })
+-- use kj to exit insert mode
+keymap.set("i", "kj", "<ESC>", { desc = "Exit insert mode with kj" })
 
 -- clear search highlights
-keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
+keymap.set("n", "<leader>h", ":nohl<CR>", { desc = "Clear search highlights" })
 
 -- delete single character without copying into register
 keymap.set("n", "x", '"_x')
