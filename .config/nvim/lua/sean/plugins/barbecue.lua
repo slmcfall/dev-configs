@@ -9,9 +9,12 @@ return {
     },
     opts = {
       show_navic = false,
+      show_modified = true,
       symbols = {
-        separator = "/"
+        separator = "/",
+        modified = "󱥸",
       },
+      -- modified = function(bufnr) return vim.bo[bufnr].modified end,
     },
   }
 }

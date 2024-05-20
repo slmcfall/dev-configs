@@ -28,3 +28,6 @@ setup-dotfiles:
 	brew install stow
 	# remove old dotfiles 
 	stow .  # in dev-configs repo root level AND when files need to be refreshed
+
+setup-git:
+	git config --global core.editor "neovim"

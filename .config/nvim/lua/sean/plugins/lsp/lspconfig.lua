@@ -16,6 +16,8 @@ return {
     -- import cmp-nvim-lsp plugin
     local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
+    local which_key = require("which-key")
+
     local keymap = vim.keymap -- for conciseness
 
     vim.api.nvim_create_autocmd("LspAttach", {
@@ -25,6 +27,7 @@ return {
         -- See `:help vim.lsp.*` for documentation on any of the below functions
         local opts = { buffer = ev.buf, silent = true }
         local client = vim.lsp.get_client_by_id(ev.data.client_id)
+
 
         -- set keybinds
         opts.desc = "Show LSP references"
@@ -40,7 +43,12 @@ return {
         keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
 
         opts.desc = "Show LSP type definitions"
-        keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
+        which_key.register({
+          l = {
+            name = "lsp", -- optional group name
+            t = { "<cmd>Telescope lsp_type_definitions<CR>", opts.desc },
+          },
+        }, { prefix = "<leader>", mode = "n" })
 
         opts.desc = "See available code actions"
         keymap.set({ "n", "v" }, "ga", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection

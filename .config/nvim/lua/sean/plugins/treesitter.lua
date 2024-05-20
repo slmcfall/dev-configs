@@ -24,8 +24,6 @@ return {
       ensure_installed = {
         "json",
         "yaml",
-        "html",
-        "css",
         "markdown",
         "markdown_inline",
         "bash",
