@@ -9,8 +9,7 @@ return {
     end
 
     local function go_right()
-      vim.cmd("wincmd l") -- Save and quit
-      -- vim.api.nvim_feedkeys(":wincmd l<CR>", "n", true)
+      vim.cmd("wincmd l") -- move to closest open buffer
     end
 
     auto_session.setup({
