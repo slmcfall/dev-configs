@@ -22,13 +22,10 @@ keymap.set("n", "<leader>ww", "<cmd>w<CR>", { desc = "Save file" })
 
 -- use kj to exit insert mode
 keymap.set("i", "kj", "<ESC><cmd>w<CR>", { desc = "Exit insert mode with kj" })
-<<<<<<< HEAD
 
 -- empty line insertions in normal model
 keymap.set("n", "<leader><S-o>", "<S-o><ESC>", { desc = "Empty line above" })
 keymap.set("n", "<leader>o", "o<ESC>", { desc = "Empty line below" })
-=======
->>>>>>> c42e386 (conflict)
 
 -- clear search highlights
 keymap.set("n", "<leader>h", ":nohl<CR>", { desc = "Clear search highlights" })
