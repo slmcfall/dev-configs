@@ -14,11 +14,14 @@ keymap.set("n", "<Tab>", ":bnext<cr>", { silent = true })
 -- general ---------------------------
 --------------------------------------
 
+-- put most recent yank
+keymap.set("n", "<leader>p", '"0p', { desc = "Put most recent yank" })
+
 -- save file
 keymap.set("n", "<leader>ww", "<cmd>w<CR>", { desc = "Save file" })
 
 -- use kj to exit insert mode
-keymap.set("i", "kj", "<ESC>", { desc = "Exit insert mode with kj" })
+keymap.set("i", "kj", "<ESC><cmd>w<CR>", { desc = "Exit insert mode with kj" })
 
 -- empty line insertions in normal model
 keymap.set("n", "<leader><S-o>", "<S-o><ESC>", { desc = "Empty line above" })
