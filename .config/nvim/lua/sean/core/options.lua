@@ -48,3 +48,6 @@ opt.swapfile = false
 
 -- status line
 opt.ruler = false
+
+-- lines around cursor
+opt.scrolloff = 10
