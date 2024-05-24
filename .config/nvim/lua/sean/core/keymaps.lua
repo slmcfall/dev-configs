@@ -4,21 +4,25 @@ vim.g.mapleader = " "
 local keymap = vim.keymap -- for conciseness
 
 --------------------------------------
--- general ---------------------------
+-- navigation ------------------------
 --------------------------------------
-keymap.set("n", "<C-u>", "<Nop>")
-keymap.set("n", "<C-p>", "<Nop>")
-
-keymap.set("n", "<C-u>", ":bprevious<cr>")
-keymap.set("n", "<C-p>", ":bnext<cr>")
+keymap.set("n", "<S-Tab>", ":bprevious<cr>", { silent = true })
+keymap.set("n", "<Tab>", ":bnext<cr>", { silent = true })
 
 
 --------------------------------------
 -- general ---------------------------
 --------------------------------------
+
+-- save file
+keymap.set("n", "<leader>ww", "<cmd>w<CR>", { desc = "Save file" })
 
 -- use kj to exit insert mode
 keymap.set("i", "kj", "<ESC>", { desc = "Exit insert mode with kj" })
+
+-- empty line insertions in normal model
+keymap.set("n", "<leader><S-o>", "<S-o><ESC>", { desc = "Empty line above" })
+keymap.set("n", "<leader>o", "o<ESC>", { desc = "Empty line below" })
 
 -- clear search highlights
 keymap.set("n", "<leader>h", ":nohl<CR>", { desc = "Clear search highlights" })
@@ -34,17 +38,22 @@ keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number" }) -- decremen
 -- window management -----------------
 --------------------------------------
 
--- SPLITS
+------------
+-- SPLITS --
+------------
 -- open select file in tree in new VERTICAL split: ctrl+v
 -- open select file in tree in new HORIZONAL split: ctrl+x
-keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" })     -- split window vertically
-keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" })   -- split window horizontally
-keymap.set("n", "<leader>se", "<C-w>=", { desc = "Make splits equal size" })      -- make split windows equal width & height
-keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current split" }) -- close current split window
+keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" })
+keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" })
+keymap.set("n", "<leader>se", "<C-w>=", { desc = "Make splits equal size" })
+keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current split" })
+keymap.set("n", "<leader>sb", "<cmd>sbp<CR>", { desc = "Open previous buffer in a split" })
 
--- TABS
-keymap.set("n", "<leader>to", "<cmd>tabnew<CR>", { desc = "Open new tab" })                     -- open new tab
-keymap.set("n", "<leader>tx", "<cmd>tabclose<CR>", { desc = "Close current tab" })              -- close current tab
-keymap.set("n", "<leader>tn", "<cmd>tabn<CR>", { desc = "Go to next tab" })                     --  go to next tab
-keymap.set("n", "<leader>tp", "<cmd>tabp<CR>", { desc = "Go to previous tab" })                 --  go to previous tab
-keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab" }) --  move current buffer to new tab
+----------
+-- TABS --
+----------
+keymap.set("n", "<leader>to", "<cmd>tabnew<CR>", { desc = "Open new tab" })
+keymap.set("n", "<leader>tx", "<cmd>tabclose<CR>", { desc = "Close current tab" })
+keymap.set("n", "<leader>tn", "<cmd>tabn<CR>", { desc = "Go to next tab" })
+keymap.set("n", "<leader>tp", "<cmd>tabp<CR>", { desc = "Go to previous tab" })
+keymap.set("n", "<leader>tf", "<cmd>tabnew %<CR>", { desc = "Open current buffer in new tab" })

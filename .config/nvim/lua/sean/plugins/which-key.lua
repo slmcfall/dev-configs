@@ -9,15 +9,13 @@ return {
   opts = {
     defaults = {
       ["<leader>t"] = { name = "+tabs" },
-      -- ["<leader>c"] = { name = "+lsp" },
       ["<leader>e"] = { name = "+file explorer | Nvim-Tree" },
       ["<leader>f"] = { name = "+fuzzy find | Telescope" },
       ["<leader>g"] = { name = "+git | Neogit" },
-      -- ["<leader>r"] = { name = "+lsp" },
       ["<leader>s"] = { name = "+splits" },
       ["<leader>v"] = { name = "+virtual environment" },
       ["<leader>w"] = { name = "+session | Auto-Session" },
-      -- ["<leader>z"] = { name = "+lsp" },
+      ["<leader>q"] = { name = "+session | Auto-Session" },
     },
     icons = {
       separator = "󰇘"
