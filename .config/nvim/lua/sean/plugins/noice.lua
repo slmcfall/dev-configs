@@ -3,15 +3,12 @@ return {
   event = "VeryLazy",
   dependencies = {
     "MunifTanjim/nui.nvim",
-    "rcarriga/nvim-notify",
+    -- "rcarriga/nvim-notify",
   },
   config = function()
     local enable_conceal = false -- Hide command text if true
 
     require("noice").setup({
-      presets = {
-        -- command_palette = true,
-      },
 
       messages = { enabled = true, view = "mini" },
 
