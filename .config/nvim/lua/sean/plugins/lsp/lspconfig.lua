@@ -98,11 +98,47 @@ return {
       vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
     end
 
+    ---------
+    -- DBT --
+    ---------
+    local configs = require('lspconfig.configs')
+
+    if not configs.dbtls then
+      configs.dbtls = {
+        default_config = {
+          root_dir = lspconfig.util.root_pattern('dbt_project.yml'),
+          cmd = { 'dbt-language-server', '--stdio' },
+          filetypes = { "sql", "yml", "yaml" },
+          init_options = {
+            pythonInfo = {
+              -- TODO: set this to hook into venv-selector (will probably need to use latest venv-selector branch)
+              path =
+              '/Users/seanmcfall/Library/Caches/pypoetry/virtualenvs/jaffle-shop-duckdb-4CxgYS01-py3.11/bin/python'
+            },
+            lspMode = 'dbtProject',
+            enableSnowflakeSyntaxCheck = false
+          }
+        },
+      }
+    end
+
+    lspconfig.dbtls.setup {}
+
+
+
     mason_lspconfig.setup_handlers({
       -- default handler for installed servers
       function(server_name)
         lspconfig[server_name].setup({
           capabilities = capabilities,
+        })
+      end,
+
+      ["jinja-lsp"] = function()
+        -- configure ruff server
+        lspconfig["jinja-lsp"].setup({
+          capabilities = capabilities,
+          filetypes = { "jinja" },
         })
       end,
 
