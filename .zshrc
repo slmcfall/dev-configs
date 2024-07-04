@@ -96,24 +96,39 @@ source $ZSH/oh-my-zsh.sh
 # fi
 
 # Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+# export ARCHFLAGS="-arch x86"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
+# history setup
+HISTFILE=$HOME/.zhistory
+SAVEHIST=1000
+HISTSIZE=999
+setopt share_history
+setopt hist_expire_dups_first
+setopt hist_ignore_dups
+# completion using arrow keys (based on history)
+bindkey '^[[A' history-search-backward
+bindkey '^[[B' history-search-forward
+
 #
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+# aliases
+#
+
+# cli replacements
+alias ls="eza --icons=always"
+eval "$(zoxide init zsh)"
+alias cd="z"
+
+# git
 alias gs="git status"
 alias gss="git status -s"
 alias gcm="git commit -m"
 alias gpsuo="git push --set-upstream origin"
 
+# navigation
 alias dc="cd ~/.config/nvim"
 alias wrk="cd ~/workspace"
 alias n.="nvim ."
+alias l="eza --icons=always -1"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
