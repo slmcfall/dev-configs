@@ -128,7 +128,7 @@ alias gpsuo="git push --set-upstream origin"
 alias dc="cd ~/.config/nvim"
 alias wrk="cd ~/workspace"
 alias n.="nvim ."
-alias l="eza --icons=always -1"
+alias l="eza -a --icons=always -1"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
