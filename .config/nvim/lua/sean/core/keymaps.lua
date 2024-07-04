@@ -9,6 +9,12 @@ local keymap = vim.keymap -- for conciseness
 keymap.set("n", "<S-Tab>", ":bprevious<cr>", { silent = true })
 keymap.set("n", "<Tab>", ":bnext<cr>", { silent = true })
 
+--------------------------------------
+-- snippets --------------------------
+--------------------------------------
+-- va{ >>> visual mode on specified character
+-- yi{ >>> go to start of specified character, inner
+-- vaW, inclues whitespace >>> visual mode, select word + whitespace
 
 --------------------------------------
 -- general ---------------------------

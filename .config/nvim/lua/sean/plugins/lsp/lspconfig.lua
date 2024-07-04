@@ -134,14 +134,6 @@ return {
         })
       end,
 
-      ["jinja-lsp"] = function()
-        -- configure ruff server
-        lspconfig["jinja-lsp"].setup({
-          capabilities = capabilities,
-          filetypes = { "jinja" },
-        })
-      end,
-
       ["ruff"] = function()
         -- configure ruff server
         lspconfig["ruff"].setup({
