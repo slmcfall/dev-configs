@@ -6,6 +6,10 @@ setup-zsh:
 	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 	source ~/.zshrc
 
+setup-other-stuff:
+	brew install zoxide
+	brew install eza
+
 setup-tmux:
 	brew install tmux
 	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
