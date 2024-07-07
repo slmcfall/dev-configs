@@ -19,6 +19,7 @@ return {
     })
 
     vim.keymap.set("n", "<leader>eo", "<cmd>Oil<cr>", { desc = "Open Oil" })
+    vim.keymap.set("n", "-", "<cmd>Oil<cr>", { desc = "Open parent directory" })
     vim.keymap.set("n", "<leader>ev", function()
       vim.cmd("vsplit | wincmd l")
       require("oil").open()
