@@ -15,8 +15,8 @@ return {
     auto_session.setup({
       auto_restore_enabled = true,
       auto_session_suppress_dirs = { "~/", "~/Dev/", "~/Downloads", "~/Documents", "~/Desktop/" },
-      post_restore_cmds = { change_nvim_tree_dir, "NvimTreeOpen", go_right },
-      pre_save_cmds = { "NvimTreeClose" },
+      -- post_restore_cmds = { change_nvim_tree_dir, "NvimTreeOpen", go_right },
+      -- pre_save_cmds = { "NvimTreeClose" },
     })
 
     local keymap = vim.keymap

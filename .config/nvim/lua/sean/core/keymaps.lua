@@ -12,7 +12,8 @@ keymap.set("n", "<Tab>", ":bnext<cr>", { silent = true })
 --------------------------------------
 -- snippets --------------------------
 --------------------------------------
--- va{ >>> visual mode on specified character
+-- va{ >>> visual mode select { inclusive
+-- vi{ >>> visual mode select { inner
 -- yi{ >>> go to start of specified character, inner
 -- vaW, inclues whitespace >>> visual mode, select word + whitespace
 
