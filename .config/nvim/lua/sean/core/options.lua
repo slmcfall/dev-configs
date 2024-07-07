@@ -51,3 +51,5 @@ opt.ruler = false
 
 -- lines around cursor
 opt.scrolloff = 10
+
+opt.smoothscroll = true

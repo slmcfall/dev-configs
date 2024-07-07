@@ -7,8 +7,14 @@ setup-zsh:
 	source ~/.zshrc
 
 setup-other-stuff:
+	# better cd
 	brew install zoxide
+	# better ls
 	brew install eza
+	# TUI delimited data
+	cargo install tabiew
+	# TUI search/replace
+	cargo install serpl
 
 setup-tmux:
 	brew install tmux
@@ -26,7 +32,7 @@ setup-python:
 	# install poetry venv in this repo
 	# update init.lua with path of that venv
 	brew install fd
-# open python file, <Leader>vs, select environment
+	# open python file, <Leader>vs, select environment
 
 setup-dotfiles:
 	brew install stow

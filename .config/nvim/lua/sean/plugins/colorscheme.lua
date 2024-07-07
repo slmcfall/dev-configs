@@ -16,6 +16,8 @@ return {
 
       require("tokyonight").setup({
         style = "night",
+        dim_inactive = true,
+        cache = false,
         on_colors = function(colors)
           colors.bg = bg
           colors.bg_dark = bg_dark

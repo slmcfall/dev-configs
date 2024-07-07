@@ -2,6 +2,9 @@ return {
   "neovim/nvim-lspconfig",
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+    "neovim/nvim-lspconfig",
     "hrsh7th/cmp-nvim-lsp",
     { "antosha417/nvim-lsp-file-operations", config = true },
     { "folke/neodev.nvim",                   opts = {} },
@@ -139,6 +142,14 @@ return {
         lspconfig["ruff"].setup({
           capabilities = capabilities,
           filetypes = { "python" },
+        })
+      end,
+
+      ["jsonls"] = function()
+        -- configure ruff server
+        lspconfig["jsonls"].setup({
+          capabilities = capabilities,
+          filetypes = { "json" },
         })
       end,
 
