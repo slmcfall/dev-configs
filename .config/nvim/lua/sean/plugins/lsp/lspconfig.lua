@@ -46,12 +46,12 @@ return {
         keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
 
         opts.desc = "Show LSP type definitions"
-        which_key.register({
-          l = {
-            name = "lsp", -- optional group name
-            t = { "<cmd>Telescope lsp_type_definitions<CR>", opts.desc },
-          },
-        }, { prefix = "<leader>", mode = "n" })
+        which_key.add(
+          {
+            { "<leader>l",  group = "lsp" },
+            { "<leader>lt", "<cmd>Telescope lsp_type_definitions<CR>", desc = "Show LSP type definitions" },
+          }
+        )
 
         opts.desc = "See available code actions"
         keymap.set({ "n", "v" }, "ga", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection

@@ -1,4 +1,4 @@
-return {
+return { -- neomodern
   {
     "folke/tokyonight.nvim",
     lazy = false,
@@ -37,7 +37,7 @@ return {
         end,
       })
       -- load the colorscheme here
-      vim.cmd([[colorscheme tokyonight]])
+      -- vim.cmd([[colorscheme tokyonight]])
     end,
   },
 }

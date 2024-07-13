@@ -24,19 +24,11 @@ return {
       }):find()
     end
 
-    vim.keymap.set("n", "<leader>fh", function() toggle_telescope(harpoon:list()) end,
-      { desc = "Open harpoon window" })
+    local wk = require("which-key")
+    wk.add({ { "<leader>a", function() harpoon:list():add() end, desc = "Add", icon = "⇁" }, })
+    wk.add({ { "<leader>c", function() harpoon:list():clear() end, desc = "Clear", icon = "⇁" }, })
+    wk.add({ { ",", function() toggle_telescope(harpoon:list()) end, desc = "Harpoon List", icon = "⇁" }, })
 
-    vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end, { desc = "⇁ Add" })
-    vim.keymap.set("n", "<leader>r", function() harpoon:list():remove() end, { desc = "⇁ Remove" })
-    vim.keymap.set("n", "<leader>c", function() harpoon:list():clear() end, { desc = "⇁ Clear" })
-
-    -- vim.keymap.set("n", "<C-h>", function() harpoon:list():select(1) end)
-    -- vim.keymap.set("n", "<C-t>", function() harpoon:list():select(2) end)
-    -- vim.keymap.set("n", "<C-n>", function() harpoon:list():select(3) end)
-    -- vim.keymap.set("n", "<C-s>", function() harpoon:list():select(4) end)
-
-    -- Toggle previous & next buffers stored within Harpoon list
     vim.keymap.set("n", "<C-i>", function() harpoon:list():prev() end)
     vim.keymap.set("n", "<C-o>", function() harpoon:list():next() end)
   end,
