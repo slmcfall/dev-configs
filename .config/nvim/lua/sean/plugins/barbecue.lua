@@ -15,7 +15,6 @@ return {
         separator = "/",
         modified = "󱥸",
       },
-      -- modified = function(bufnr) return vim.bo[bufnr].modified end,
     },
   }
 }

@@ -9,8 +9,16 @@ return {
 
     oil.setup({
       default_file_explorer = true,
+      delete_to_trash = true,
+      skip_confirm_for_simple_edits = true,
+      win_options = {
+        wrap = true,
+      },
       view_options = {
-        show_hidden = true
+        show_hidden = true,
+        is_always_hidden = function(name, _)
+          return name == '..' or name == '.git'
+        end,
       },
       keymaps = {
         ["<C-h>"] = false,
@@ -18,8 +26,11 @@ return {
       },
     })
 
+    -- open
     vim.keymap.set("n", "<leader>eo", "<cmd>Oil<cr>", { desc = "Open Oil" })
     vim.keymap.set("n", "-", "<cmd>Oil<cr>", { desc = "Open parent directory" })
+
+    -- splits
     vim.keymap.set("n", "<leader>ev", function()
       vim.cmd("vsplit | wincmd l")
       require("oil").open()

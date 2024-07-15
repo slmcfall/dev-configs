@@ -8,6 +8,6 @@ return
       -- optional configuration here
       style = "iceclimber",
     })
-    require("neomodern").load()
+    -- require("neomodern").load()
   end,
 }

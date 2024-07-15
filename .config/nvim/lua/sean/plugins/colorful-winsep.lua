@@ -6,9 +6,15 @@ return {
 
     winsep.setup({
       -- highlight for Window separator
+      -- tokyonights
+      -- hi = {
+      --   bg = "#011423",
+      --   fg = "#143652",
+      -- },
+      -- neomodern, iceclimber
       hi = {
-        bg = "#011423",
-        fg = "#143652",
+        bg = "#171718",
+        fg = "#6b6a6e",
       },
       -- This plugin will not be activated for filetype in the following table.
       -- no_exec_files = { "packer", "TelescopePrompt", "mason", "CompetiTest", "NvimTree" },

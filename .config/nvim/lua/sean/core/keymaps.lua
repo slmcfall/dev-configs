@@ -16,6 +16,8 @@ keymap.set("n", "<Tab>", ":bnext<cr>", { silent = true })
 -- vi{ >>> visual mode select { inner
 -- yi{ >>> go to start of specified character, inner
 -- vaW, inclues whitespace >>> visual mode, select word + whitespace
+-- g; move to last edit location
+-- g, move to next edit location
 
 --------------------------------------
 -- general ---------------------------

@@ -33,6 +33,9 @@ return {
 
 
         -- set keybinds
+        opts.desc = "Show line diagnostics"
+        keymap.set("n", "gl", "<cmd>lua vim.diagnostic.open_float(0, {scope='line'})<CR>", opts)
+
         opts.desc = "Show LSP references"
         keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
 
@@ -49,7 +52,7 @@ return {
         which_key.add(
           {
             { "<leader>l",  group = "lsp" },
-            { "<leader>lt", "<cmd>Telescope lsp_type_definitions<CR>", desc = "Show LSP type definitions" },
+            { "<leader>lt", "<cmd>Telescope lsp_type_definitions<CR>", opts },
           }
         )
 

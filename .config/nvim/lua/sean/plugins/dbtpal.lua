@@ -6,9 +6,8 @@ return {
   },
   ft = {
     "sql",
-    "md",
-    "yaml",
   },
+  commit = "d3e879d",
   config = function()
     require("dbtpal").setup({
       path_to_dbt = "dbt",
