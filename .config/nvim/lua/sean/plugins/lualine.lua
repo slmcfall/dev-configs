@@ -69,11 +69,10 @@ return {
       sections = {
         lualine_a = { '' },
         lualine_b = { 'searchcount' },
-        -- lualine_c = { 'selectioncount' },
-        lualine_c = { "require'weather.lualine'.default_f()" },
+        lualine_c = { 'selectioncount' },
         lualine_x = { '' },
-        lualine_y = { "require'weather.lualine'.default_f()" },
-        lualine_z = { "require'weather.lualine'.default_f()" }
+        lualine_y = { '' },
+        lualine_z = { '' }
       },
       inactive_sections = {
         -- lualine_a = { '' },
