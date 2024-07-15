@@ -61,18 +61,22 @@ return {
       return venv_get
     end
 
+    local function bunny()
+      return '󰤇'
+    end
+
     -- configure lualine with modified theme
     lualine.setup({
       options = {
         theme = my_lualine_theme,
       },
       sections = {
-        lualine_a = { '' },
+        lualine_a = { bunny },
         lualine_b = { 'searchcount' },
         lualine_c = { 'selectioncount' },
         lualine_x = { '' },
         lualine_y = { '' },
-        lualine_z = { '' }
+        lualine_z = { bunny }
       },
       inactive_sections = {
         -- lualine_a = { '' },
