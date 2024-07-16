@@ -6,8 +6,8 @@ local keymap = vim.keymap -- for conciseness
 --------------------------------------
 -- navigation ------------------------
 --------------------------------------
-keymap.set("n", "<S-Tab>", ":bprevious<cr>", { silent = true })
-keymap.set("n", "<Tab>", ":bnext<cr>", { silent = true })
+-- keymap.set("n", "<S-Tab>", ":bprevious<cr>", { silent = true })
+-- keymap.set("n", "<Tab>", ":bnext<cr>", { silent = true })
 
 --------------------------------------
 -- snippets --------------------------
@@ -18,6 +18,8 @@ keymap.set("n", "<Tab>", ":bnext<cr>", { silent = true })
 -- vaW, inclues whitespace >>> visual mode, select word + whitespace
 -- g; move to last edit location
 -- g, move to next edit location
+-- up 1/2 page: ctrl+u
+-- down 1/2 page: ctrl+d
 
 --------------------------------------
 -- general ---------------------------
@@ -49,6 +51,7 @@ keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number" }) -- decremen
 --------------------------------------
 -- window management -----------------
 --------------------------------------
+keymap.set("n", "<leader>qf", "<cmd>qf<CR>", { desc = "Quit buffer" })
 
 ------------
 -- SPLITS --
