@@ -83,6 +83,8 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+# zsh suggestion auto complete binding
+bindkey '^[[Z' autosuggest-accept
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -123,12 +125,22 @@ alias gs="git status"
 alias gss="git status -s"
 alias gcm="git commit -m"
 alias gpsuo="git push --set-upstream origin"
+alias gbl="git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)'"
 
 # navigation
 alias dc="cd ~/.config/nvim"
 alias wrk="cd ~/workspace"
+alias min="cd ~/workspace/mindoula.data"
+alias mindbt="cd ~/workspace/mindoula.data/mindoula_dbt_athena"
 alias n.="nvim ."
 alias l="eza -a --icons=always -1"
+alias n="nvim"
+
+alias g="google"
+alias md="cd ~/.local/share/nvim/lazy/markdown-preview.nvim && npm install"
+
+# EXPORTS
+export DAGSTER_HOME="/Users/seanmcfall/workspace/mindoula.data"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

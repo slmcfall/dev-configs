@@ -1,6 +1,7 @@
 return {
   "nvim-zh/colorful-winsep.nvim",
   event = { "WinNew" },
+  enable = false,
   config = function()
     local winsep = require("colorful-winsep")
 
