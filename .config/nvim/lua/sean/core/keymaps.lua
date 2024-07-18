@@ -21,6 +21,11 @@ local keymap = vim.keymap -- for conciseness
 -- up 1/2 page: ctrl+u
 -- down 1/2 page: ctrl+d
 
+--------
+--- disable
+--------
+keymap.set({ 'n', 'x' }, 's', '<Nop>')
+
 --------------------------------------
 -- general ---------------------------
 --------------------------------------

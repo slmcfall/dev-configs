@@ -5,7 +5,6 @@ return {
     vim.o.timeout = true
     vim.o.timeoutlen = 500
   end,
-  -- optional = true,
   opts = {
     icons = {
       separator = "󰇘"
@@ -26,6 +25,8 @@ return {
       { "<leader>s", group = "+splits", icon = "" },
       { "<leader>w", group = "+session       | Auto-Session" },
       { "<leader>q", group = "+session       | Auto-Session", hidden = true },
+
+
       -------------
       -- KEYMAPS --
       -------------
