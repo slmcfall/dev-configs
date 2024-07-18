@@ -142,6 +142,9 @@ alias seshc='sesh connect $(sesh list | fzf)'
 alias g="google"
 alias md="cd ~/.local/share/nvim/lazy/markdown-preview.nvim && npm install"
 
+# tmux
+alias tksa="tmux kill-session -a"
+
 # EXPORTS
 export DAGSTER_HOME="/Users/seanmcfall/workspace/mindoula.data"
 
