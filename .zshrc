@@ -136,6 +136,9 @@ alias n.="nvim ."
 alias l="eza -a --icons=always -1"
 alias n="nvim"
 
+# tmux
+alias seshc='sesh connect $(sesh list | fzf)'
+
 alias g="google"
 alias md="cd ~/.local/share/nvim/lazy/markdown-preview.nvim && npm install"
 

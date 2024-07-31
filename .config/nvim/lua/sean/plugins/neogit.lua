@@ -10,7 +10,8 @@ return {
     local neogit = require("neogit")
 
     neogit.setup({
-      kind = "vsplit"
+      kind = "vsplit",
+      auto_close_console = true,
     })
 
     -- set keymaps

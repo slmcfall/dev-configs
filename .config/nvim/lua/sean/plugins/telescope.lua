@@ -30,7 +30,7 @@ return {
 
     telescope.setup({
       defaults = {
-        -- path_display = filenameFirst,
+        path_display = filenameFirst,
         mappings = {
           i = {
             ["<C-k>"] = actions.move_selection_previous, -- move to prev result
