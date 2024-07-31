@@ -20,6 +20,7 @@ setup-tmux:
 	brew install tmux
 	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 	# open tmux, <leader>I to install plugins
+	brew install joshmedeski/sesh/sesh
 
 setup-nvim:
 	brew tap homebrew/cask-fonts
