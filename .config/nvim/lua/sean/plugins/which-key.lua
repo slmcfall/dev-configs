@@ -44,11 +44,13 @@ return {
       -- number incrementation
       { "<leader>+", "<C-a>", desc = "Increment number", hidden = true },
       { "<leader>-", "<C-x>", desc = "Decrement number", hidden = true },
+      -- put most recent yank
+      { "<leader>p", '"0p', desc = "put most recent yank", icon = "󰆒" },
 
       ----------------
       -- formatting --
       ----------------
-      { "<leader>vs", group = "Virtual Environment", icon = "󱔎" },
+      { "<leader>v", group = "Virtual Environment", icon = "󱔎" },
     })
   end,
 }

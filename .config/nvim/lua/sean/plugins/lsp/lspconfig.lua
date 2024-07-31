@@ -51,7 +51,7 @@ return {
         opts.desc = "Show LSP type definitions"
         which_key.add(
           {
-            { "<leader>l",  group = "lsp" },
+            { "<leader>l", group = "lsp", icon = "󰢱" },
             { "<leader>lt", "<cmd>Telescope lsp_type_definitions<CR>", opts },
           }
         )
