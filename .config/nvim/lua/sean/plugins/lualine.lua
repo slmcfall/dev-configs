@@ -71,32 +71,18 @@ return {
         theme = my_lualine_theme,
       },
       sections = {
-        lualine_a = { bunny },
-        lualine_b = { 'searchcount' },
-        lualine_c = { 'selectioncount' },
-        lualine_x = { '' },
-        lualine_y = { '' },
-        lualine_z = { bunny }
-      },
-      inactive_sections = {
-        -- lualine_a = { '' },
-        -- lualine_b = { '' },
-        -- lualine_c = { '' },
-        -- lualine_x = { '' },
-        -- lualine_y = { '' },
-        -- lualine_z = { '' }
-      },
-      tabline = {
-        lualine_x = {
+        lualine_a = { { 'mode' },
+          { bunny }, },
+        lualine_b = { 'branch', 'filetype', 'diagnostics' },
+        lualine_c = {
           {
             venv,
             color = { fg = "#e0af68" },
           },
-          -- { "fileformat" },
-          { "filetype" },
         },
-        lualine_y = { 'branch', 'diff', 'diagnostics' },
-        lualine_z = { 'mode' }
+        lualine_x = { '' },
+        lualine_y = { '' },
+        lualine_z = { '' }
       },
     })
   end,
