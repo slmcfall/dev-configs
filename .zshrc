@@ -134,6 +134,7 @@ alias min="cd ~/workspace/mindoula.data"
 alias mindbt="cd ~/workspace/mindoula.data/mindoula_dbt_athena"
 alias n.="nvim ."
 alias l="eza -a --icons=always -1"
+alias ld="eza -a --icons=always -1 -s=acc"
 alias n="nvim"
 
 # tmux
