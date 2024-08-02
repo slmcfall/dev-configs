@@ -53,3 +53,6 @@ opt.ruler = false
 opt.scrolloff = 10
 
 opt.smoothscroll = true
+
+-- adds permanent lines between splits
+opt.laststatus = 3
