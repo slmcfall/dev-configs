@@ -10,7 +10,7 @@ return {
     local neogit = require("neogit")
 
     neogit.setup({
-      kind = "vsplit",
+      kind = "tab",
       auto_close_console = true,
     })
 
