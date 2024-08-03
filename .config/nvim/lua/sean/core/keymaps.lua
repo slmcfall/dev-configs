@@ -4,12 +4,6 @@ vim.g.mapleader = " "
 local keymap = vim.keymap -- for conciseness
 
 --------------------------------------
--- navigation ------------------------
---------------------------------------
--- keymap.set("n", "<S-Tab>", ":bprevious<cr>", { silent = true })
--- keymap.set("n", "<Tab>", ":bnext<cr>", { silent = true })
-
---------------------------------------
 -- snippets --------------------------
 --------------------------------------
 -- va{ >>> visual mode select { inclusive
@@ -39,24 +33,12 @@ keymap.set("n", "<leader>ww", "<cmd>w<CR>", { desc = "Save file" })
 -- use kj to exit insert mode
 keymap.set("i", "kj", "<ESC><cmd>w<CR>", { desc = "Exit insert mode with kj" })
 
--- empty line insertions in normal model
--- keymap.set("n", "<leader><S-o>", "<S-o><ESC>", { desc = "Empty line above" })
--- keymap.set("n", "<leader>o", "o<ESC>", { desc = "Empty line below" })
-
--- clear search highlights
--- keymap.set("n", "<leader>h", ":nohl<CR>", { desc = "Clear search highlights" })
-
 -- delete single character without copying into register
 keymap.set("n", "x", '"_x')
 
 -- increment/decrement numbers
 keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number" }) -- increment
 keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number" }) -- decrement
-
---------------------------------------
--- window management -----------------
---------------------------------------
-keymap.set("n", "<leader>qf", "<cmd>qf<CR>", { desc = "Quit buffer" })
 
 ------------
 -- SPLITS --

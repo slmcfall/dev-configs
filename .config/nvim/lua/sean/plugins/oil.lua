@@ -23,21 +23,12 @@ return {
       keymaps = {
         ["<C-h>"] = false,
         ["<C-l>"] = false,
+        ["vv"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
+        ["hh"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },
+
       },
     })
-
     -- open
-    vim.keymap.set("n", "<leader>eo", "<cmd>Oil<cr>", { desc = "Open Oil" })
     vim.keymap.set("n", "-", "<cmd>Oil<cr>", { desc = "Open parent directory" })
-
-    -- splits
-    vim.keymap.set("n", "<leader>ev", function()
-      vim.cmd("vsplit | wincmd l")
-      require("oil").open()
-    end, { desc = "Open Oil in vertical split" })
-    vim.keymap.set("n", "<leader>ex", function()
-      vim.cmd("split | wincmd l")
-      require("oil").open()
-    end, { desc = "Open Oil in horiztonal split" })
   end
 }
