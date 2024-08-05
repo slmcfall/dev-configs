@@ -36,7 +36,7 @@ return {
       windex_terminal_command('all', cmd),
       desc = "Launch Tmux Session Picker",
       icon = "",
-      mode = { 'n', 't' }
+      mode = { 'n' }
     }, })
   end
 }
