@@ -58,11 +58,11 @@ return {
     end
 
     local function venv()
-      local venv_get = require('venv-selector').get_active_venv()
+      local venv_get = require('venv-selector').venv()
       if venv_get == nil or venv_get == '' then
-        venv_get = ''
+        venv_get = ''
       else
-        venv_get = get_last_path_part(venv_get)
+        venv_get = '󱔎 ' .. get_last_path_part(venv_get)
       end
       return venv_get
     end
@@ -79,15 +79,15 @@ return {
       sections = {
         lualine_a = { { 'mode' },
           { bunny }, },
-        lualine_b = { 'branch', 'filetype', 'diagnostics' },
-        lualine_c = {
+        lualine_b = { 'diagnostics' },
+        lualine_c = { '' },
+        lualine_x = {
           {
             venv,
             color = { fg = "#e0af68" },
           },
         },
-        lualine_x = { '' },
-        lualine_y = { '' },
+        lualine_y = { 'branch' },
         lualine_z = { '' }
       },
     })
