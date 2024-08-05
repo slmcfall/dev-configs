@@ -20,7 +20,7 @@ return {
     end
 
     -- PYTHON
-    local cmd = "poetry run pytest" .. vim.fn.expand('%p:.')
+    local cmd = "poetry run pytest " .. vim.fn.expand('%p:.')
     wk.add({ {
       "<leader>ty",
       windex_terminal_command('all', cmd),
