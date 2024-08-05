@@ -19,6 +19,7 @@ local keymap = vim.keymap -- for conciseness
 --- disable
 --------
 keymap.set({ 'n', 'x' }, 's', '<Nop>')
+keymap.set('n', '<C-t>', '<Nop>')
 
 --------------------------------------
 -- general ---------------------------

@@ -7,6 +7,7 @@ return {
       mode = "tabs",
       separator_style = "slant",
       always_show_bufferline = false,
+      -- show_buffer_icons = false,
       -- max_name_length = 0,
     },
   },

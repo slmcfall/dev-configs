@@ -15,6 +15,7 @@ return {
     })
 
     -- set keymaps
-    vim.keymap.set("n", "<leader>g", "<cmd>Neogit<cr>", { desc = "Open Neogit" })
+    vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Open Neogit" })
+    vim.keymap.set("n", "<leader>gq", "<cmd>tabclose<CR>", { desc = "Close Neogit" })
   end,
 }
