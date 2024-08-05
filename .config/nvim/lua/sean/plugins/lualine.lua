@@ -5,11 +5,12 @@ return {
     local lualine = require("lualine")
 
     local colors = {
-      blue = "#65D1FF",
-      green = "#3EFFDC",
-      violet = "#FF61EF",
-      yellow = "#FFDA7B",
+      blue = "#7aa2f7",
+      green = "#41a6b5",
+      violet = "#9d7cd8",
+      yellow = "#ffc777",
       red = "#FF4A4A",
+      red_bg = "#ff757f",
       fg = "#c3ccdc",
       bg = "#112638",
       inactive_bg = "#011728",
@@ -23,6 +24,11 @@ return {
       },
       insert = {
         a = { bg = colors.green, fg = colors.bg, gui = "bold" },
+        b = { bg = colors.bg, fg = colors.fg },
+        c = { bg = colors.bg, fg = colors.fg },
+      },
+      terminal = {
+        a = { bg = colors.red_bg, fg = colors.bg, gui = "bold" },
         b = { bg = colors.bg, fg = colors.fg },
         c = { bg = colors.bg, fg = colors.fg },
       },
