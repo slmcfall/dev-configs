@@ -2,8 +2,17 @@ return {
   {
     "echasnovski/mini.nvim",
     config = function()
-      require("mini.ai").setup()
+      require("mini.ai").setup() -- a(round)i(nner), not AI
       require("mini.surround").setup()
+      require("mini.jump2d").setup({
+        vim.api.nvim_set_hl(0, 'MiniJump2dSpot', { fg = "#ff757f" })
+      })
+      require("mini.jump").setup({
+        delay = {
+          -- Delay between jump and highlighting all possible jumps
+          highlight = 10 ^ 7,
+        },
+      })
       require("mini.clue").setup({
         triggers = {
           { mode = 'n', keys = 's' },
