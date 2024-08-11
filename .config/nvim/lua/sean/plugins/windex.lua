@@ -1,11 +1,17 @@
 return {
   'declancm/windex.nvim',
   config = function()
-    require('windex').setup({ default_keymaps = false, save_buffers = false })
-    vim.keymap.set({ 'n', 't' }, '<C-t>', "<Cmd>lua require('windex').toggle_terminal()<CR>")
-    vim.keymap.set('t', '<C-n>', '<C-Bslash><C-n>')
+    require('windex').setup({
+      default_keymaps = false,
+      save_buffers = false
+    })
+
     --
-    -- terminal splits
+    -- keymaps
+    --
+    vim.keymap.set({ 'n', 't' }, '<C-t>', "<Cmd>lua require('windex').toggle_terminal()<CR>")
+    -- enter Normal mode while in Terminal
+    vim.keymap.set('t', '<C-n>', '<C-Bslash><C-n>')
     -- vim.keymap.set({ 'n', 't' }, '<C-Bslash>', "<Cmd>lua require('windex').create_pane('vertical')<CR>")
     vim.keymap.set({ 'n', 't' }, '<C-_>', "<Cmd>lua require('windex').create_pane('horizontal')<CR>")
 
@@ -18,7 +24,6 @@ return {
       return string.format(tog_term, mode, cli_command)
     end
 
-    -- local cmd = "dbt run -m" .. vim.fn.expand('') .. "+"
     -- PYTHON
     local cmd = "poetry run pytest " .. vim.fn.expand('%p:.')
     wk.add({ {

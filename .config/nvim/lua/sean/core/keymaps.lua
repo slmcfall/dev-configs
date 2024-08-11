@@ -41,6 +41,8 @@ keymap.set("n", "x", '"_x')
 keymap.set("n", "<leader>+", "<C-a>", { desc = "Increment number" }) -- increment
 keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number" }) -- decrement
 
+keymap.set("n", "<leader>bs", ":%s/", { desc = "Search/Replace buffer" })
+
 ------------
 -- SPLITS --
 ------------
