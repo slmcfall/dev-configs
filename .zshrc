@@ -125,7 +125,7 @@ alias gs="git status"
 alias gss="git status -s"
 alias gcm="git commit -m"
 alias gpsuo="git push --set-upstream origin"
-alias gbl="git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)'"
+alias gbl="git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)' | head -n 12"
 
 # navigation
 alias dc="cd ~/.config/nvim"
