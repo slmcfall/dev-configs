@@ -10,6 +10,7 @@ return {
     "rafamadriz/friendly-snippets",       -- useful snippets
     "onsails/lspkind.nvim",               -- vs-code like pictograms
     "lukas-reineke/cmp-under-comparator", -- sorts __python__ stuff correctly
+    "hrsh7th/cmp-nvim-lsp-signature-help",
   },
   config = function()
     local cmp = require("cmp")
@@ -82,6 +83,7 @@ return {
         { name = "buffer" },  -- text within current buffer
         { name = "path" },    -- file system paths
         { name = "dotenv" },  -- environment variables
+        -- { name = 'nvim_lsp_signature_help' },
       }),
 
       -- sorting autocomplete recommendations
