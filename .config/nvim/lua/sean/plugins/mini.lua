@@ -5,7 +5,10 @@ return {
       require("mini.ai").setup() -- a(round)i(nner), not AI
       require("mini.surround").setup()
       require("mini.jump2d").setup({
-        vim.api.nvim_set_hl(0, 'MiniJump2dSpot', { fg = "#ff757f" })
+        vim.api.nvim_set_hl(0, 'MiniJump2dSpot', { fg = "#ff757f" }),
+        mappings = {
+          start_jumping = '<C-f>',
+        },
       })
       require("mini.jump").setup({
         delay = {
