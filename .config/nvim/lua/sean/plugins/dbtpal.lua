@@ -17,6 +17,9 @@ return {
       protect_compiled_files = true,
       custom_dbt_syntax_enabled = false,
     })
-    require("telescope").load_extension("dbtpal")
+    local wk = require("which-key")
+    wk.add({ { "<leader>drm", "<cmd>DbtRun<cr>", desc = "+run model     | dbt", icon = "󰆼" }, })
+    wk.add({ { "<leader>drp", "<cmd>DbtRunAll<cr>", desc = "+run all models| dbt", icon = "󰆼" }, })
+    wk.add({ { "<leader>dtm", "<cmd>DbtTest<cr>", desc = "+run test      | dbt", icon = "󰆼" }, })
   end,
 }

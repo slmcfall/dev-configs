@@ -1,7 +1,6 @@
 return {
   "kiyoon/python-import.nvim",
-  -- build = "pipx install . --force",
-  build = "uv tool install . --force --reinstall",
+  build = "pipx install . --force",
   keys = {
     {
       "<M-CR>",
