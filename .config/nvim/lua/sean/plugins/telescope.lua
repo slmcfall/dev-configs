@@ -6,6 +6,7 @@ return {
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     "nvim-tree/nvim-web-devicons",
     "folke/todo-comments.nvim",
+    "debugloop/telescope-undo.nvim",
   },
   config = function()
     local telescope = require("telescope")
@@ -43,9 +44,19 @@ return {
           hide_on_startup = true -- hide previewer when picker starts
         },
       },
+      extensions = {
+        undo = {
+          side_by_side = true,
+          layout_strategy = "vertical",
+          layout_config = {
+            preview_height = 0.75,
+          },
+        },
+      },
     })
 
     telescope.load_extension("fzf")
+    telescope.load_extension("undo")
 
 
     --
@@ -64,6 +75,7 @@ return {
     vim.keymap.set("n", "<leader>f/", builtin.current_buffer_fuzzy_find, { desc = "Current buffer fuzzy find" })
     -- utility
     vim.keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find todos" })
+    vim.keymap.set("n", "<leader>fu", "<cmd>Telescope undo<cr>")
     -- lsp
     vim.keymap.set("n", "<leader>fx", builtin.lsp_dynamic_workspace_symbols)
   end,
