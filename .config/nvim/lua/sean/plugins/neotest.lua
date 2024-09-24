@@ -10,11 +10,19 @@ return {
   config = function()
     require("neotest").setup({
       adapters = {
-        require("neotest-python")
+        require("neotest-python")({
+          python =
+          "/Users/seanmcfall/Library/Caches/pypoetry/virtualenvs/mindoula-data-IMI5OIww-py3.12/bin/python"
+        })
       },
+      -- adapters = {
+      --   require("neotest-python")({
+      --     python = require("venv-selector").venv()
+      --   })
+      -- },
       output_panel = {
         enabled = true,
-        open = "botright vsplit | vertical resize 50"
+        -- open = "botright vsplit | vertical resize 80"
       },
     })
 
