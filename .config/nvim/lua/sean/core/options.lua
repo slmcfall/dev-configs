@@ -56,3 +56,6 @@ opt.smoothscroll = true
 
 -- adds permanent lines between splits
 opt.laststatus = 3
+
+-- saves undo history
+opt.undofile = true
