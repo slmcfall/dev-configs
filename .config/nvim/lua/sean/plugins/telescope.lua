@@ -32,7 +32,13 @@ return {
 
     telescope.setup({
       defaults = {
+        layout_strategy = "vertical",
         path_display = filenameFirst,
+        pickers = {
+          find_files = {
+            hidden = true,
+          },
+        },
         mappings = {
           i = {
             ["<C-k>"] = actions.move_selection_previous, -- move to prev result
