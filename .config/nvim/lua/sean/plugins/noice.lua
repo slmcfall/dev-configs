@@ -7,6 +7,14 @@ return {
   config = function()
     local enable_conceal = false -- Hide command text if true
 
+    -- ctrl j/k for cmd navigation
+    vim.api.nvim_set_keymap('c', '<C-j>', 'v:lua.get_wildmenu_key("<right>", "<down>")', { expr = true })
+    vim.api.nvim_set_keymap('c', '<C-k>', 'v:lua.get_wildmenu_key("<left>", "<up>")', { expr = true })
+
+    function _G.get_wildmenu_key(key_wildmenu, key_regular)
+      return vim.fn.wildmenumode() ~= 0 and key_wildmenu or key_regular
+    end
+
     require("noice").setup({
 
       messages = { enabled = true, view = "mini" },
