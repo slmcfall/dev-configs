@@ -45,6 +45,11 @@ return {
           hide_on_startup = true -- hide previewer when picker starts
         },
       },
+      pickers = {
+        find_files = {
+          find_command = { 'rg', '--files', '--hidden', '-g', '!.git' },
+        },
+      },
       extensions = {
         undo = {
           side_by_side = true,
@@ -79,6 +84,7 @@ return {
     keymap.set("n", "<leader>f/", builtin.current_buffer_fuzzy_find, { desc = "Current buffer fuzzy find" })
     -- utility
     keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find todos" })
+    keymap.set("n", "<leader>gc", "<cmd>Telescope conventional_commits<cr>", { desc = "Commit w/ conventional commit" })
     keymap.set("n", "<leader>fu", "<cmd>Telescope undo<cr>", { desc = "Search vim undotree" })
     keymap.set("n", "<leader>fd", "<cmd>lua require('dbtpal.telescope').dbt_picker()<cr>",
       { desc = "Find dbt models" })
