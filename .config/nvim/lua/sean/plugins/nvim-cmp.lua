@@ -102,10 +102,10 @@ return {
 
       -- configure lspkind for vs-code like pictograms in completion menu
       formatting = {
-        format = lspkind.cmp_format({
-          maxwidth = 50,
-          ellipsis_char = "...",
-        }),
+        format = function(entry, vim_item)
+          vim_item.menu = entry.source.name
+          return lspkind.cmp_format({})(entry, vim_item)
+        end,
       },
 
     })

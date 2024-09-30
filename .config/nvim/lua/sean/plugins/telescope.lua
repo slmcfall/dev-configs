@@ -7,6 +7,7 @@ return {
     "nvim-tree/nvim-web-devicons",
     "folke/todo-comments.nvim",
     "debugloop/telescope-undo.nvim",
+    "olacin/telescope-cc.nvim"
   },
   config = function()
     local telescope = require("telescope")
@@ -58,6 +59,7 @@ return {
     telescope.load_extension("fzf")
     telescope.load_extension("undo")
     telescope.load_extension("dbtpal")
+    telescope.load_extension("conventional_commits")
 
 
     --
