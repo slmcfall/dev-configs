@@ -33,6 +33,9 @@ return {
     telescope.setup({
       defaults = {
         layout_strategy = "vertical",
+        layout_config = {
+          -- height = 0.25,
+        },
         path_display = filenameFirst,
         pickers = {
           find_files = {
