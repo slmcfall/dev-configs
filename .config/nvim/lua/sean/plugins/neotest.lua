@@ -1,5 +1,6 @@
 return {
   "nvim-neotest/neotest",
+  event = "VeryLazy",
   dependencies = {
     "nvim-neotest/nvim-nio",
     "nvim-neotest/neotest-python",
@@ -28,6 +29,11 @@ return {
 
     local wk = require("which-key")
 
+    local run_record_mode_all = function()
+      local neotest = require("neotest")
+      neotest.run.run({ extra_args = { "--record-mode=all" } })
+    end
+
     wk.add({
       { "<leader>y", group = "+tests | Neotest", icon = "󰙨" },
 
@@ -51,9 +57,16 @@ return {
       },
 
       {
-        "<leader>yf",
+        "<leader>yff",
         "<cmd>lua require('neotest').run.run()<CR>",
         desc = "Run Closest Function",
+        icon = "󰊕"
+      },
+
+      {
+        "<leader>yfa",
+        run_record_mode_all,
+        desc = "Run Closest Function | --record-mode=all",
         icon = "󰊕"
       },
 

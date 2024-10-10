@@ -1,6 +1,7 @@
 return {
   "neovim/nvim-lspconfig",
   event = { "BufReadPre", "BufNewFile" },
+  cmd = { "LspInfo", "LspInstall", "LspUninstall" },
   dependencies = {
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
@@ -113,26 +114,26 @@ return {
     ---------
     local configs = require('lspconfig.configs')
 
-    if not configs.dbtls then
-      configs.dbtls = {
-        default_config = {
-          root_dir = lspconfig.util.root_pattern('dbt_project.yml'),
-          cmd = { 'dbt-language-server', '--stdio' },
-          filetypes = { "sql", "yml", "yaml" },
-          init_options = {
-            pythonInfo = {
-              -- TODO: set this to hook into venv-selector (will probably need to use latest venv-selector branch)
-              path =
-              '/Users/seanmcfall/Library/Caches/pypoetry/virtualenvs/jaffle-shop-duckdb-4CxgYS01-py3.11/bin/python'
-            },
-            lspMode = 'dbtProject',
-            enableSnowflakeSyntaxCheck = false
-          }
-        },
-      }
-    end
-
-    lspconfig.dbtls.setup {}
+    -- if not configs.dbtls then
+    --   configs.dbtls = {
+    --     default_config = {
+    --       root_dir = lspconfig.util.root_pattern('dbt_project.yml'),
+    --       cmd = { 'dbt-language-server', '--stdio' },
+    --       filetypes = { "sql", "yml", "yaml" },
+    --       init_options = {
+    --         pythonInfo = {
+    --           -- TODO: set this to hook into venv-selector (will probably need to use latest venv-selector branch)
+    --           path =
+    --           '/Users/seanmcfall/Library/Caches/pypoetry/virtualenvs/mindoula-data-IMI5OIww-py3.12/bin/python'
+    --         },
+    --         lspMode = 'dbtProject',
+    --         enableSnowflakeSyntaxCheck = false
+    --       }
+    --     },
+    --   }
+    -- end
+    --
+    -- lspconfig.dbtls.setup {}
 
 
 
@@ -151,6 +152,14 @@ return {
           filetypes = { "python" },
         })
       end,
+
+      -- ["sqls"] = function()
+      --   -- configure ruff server
+      --   lspconfig["sqls"].setup({
+      --     capabilities = capabilities,
+      --     filetypes = { "sql" },
+      --   })
+      -- end,
 
       ["jsonls"] = function()
         -- configure ruff server

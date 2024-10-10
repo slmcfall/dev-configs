@@ -72,7 +72,6 @@ return {
 
     telescope.load_extension("fzf")
     telescope.load_extension("undo")
-    telescope.load_extension("dbtpal")
     telescope.load_extension("conventional_commits")
 
 
@@ -95,8 +94,8 @@ return {
     keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find todos" })
     keymap.set("n", "<leader>gc", "<cmd>Telescope conventional_commits<cr>", { desc = "Commit w/ conventional commit" })
     keymap.set("n", "<leader>fu", "<cmd>Telescope undo<cr>", { desc = "Search vim undotree" })
-    keymap.set("n", "<leader>fd", "<cmd>lua require('dbtpal.telescope').dbt_picker()<cr>",
-      { desc = "Find dbt models" })
+    -- keymap.set("n", "<leader>fd", "<cmd>lua require('dbtpal.telescope').dbt_picker()<cr>",
+    --   { desc = "Find dbt models" })
     -- lsp
     keymap.set("n", "<leader>fx", builtin.lsp_dynamic_workspace_symbols)
   end,
