@@ -19,15 +19,14 @@ setup-other-stuff:
 setup-tmux:
 	brew install tmux
 	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-	# open tmux, <leader>I to install plugins
-	brew install joshmedeski/sesh/sesh
 
 setup-nvim:
 	brew tap homebrew/cask-fonts
-	brew install font-meslo-lg-nerd-font
+	brew install font-blex-mono-nerd-font
 	brew install neovim
 	brew install ripgrep
 	brew install node
+	brew install fzf
 
 setup-python:
 	# install poetry venv in this repo

@@ -5,7 +5,7 @@ return {
   dependencies = {
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
-    "hrsh7th/cmp-nvim-lsp",
+    -- "hrsh7th/cmp-nvim-lsp",
   },
   config = function()
     -- import lspconfig plugin
@@ -15,7 +15,7 @@ return {
     local mason_lspconfig = require("mason-lspconfig")
 
     -- import cmp-nvim-lsp plugin
-    local cmp_nvim_lsp = require("cmp_nvim_lsp")
+    -- local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
     local which_key = require("which-key")
 
@@ -82,6 +82,20 @@ return {
         opts.desc = "Restart LSP"
         keymap.set("n", "g!", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
 
+        vim.api.nvim_create_autocmd("FileType", {
+          desc = "Comprehensively reformat Python with Ruff",
+          pattern = "python",
+          callback = function()
+            vim.keymap.set('n', 'gZ', function()
+              vim.lsp.buf.code_action {
+                context = { only = { 'source.fixAll' }, diagnostics = {} },
+                apply = true,
+              }
+              vim.lsp.buf.format { async = true }
+            end, { desc = 'Format buffer' })
+          end
+        })
+
         if client.supports_method("textDocument/formatting") then
           opts.desc = "Format buffer"
           keymap.set("n", "gz", vim.lsp.buf.format, opts)
@@ -96,7 +110,7 @@ return {
     })
 
     -- used to enable autocompletion (assign to every lsp server config)
-    local capabilities = cmp_nvim_lsp.default_capabilities()
+    -- local capabilities = cmp_nvim_lsp.default_capabilities()
 
     -- Change the Diagnostic symbols in the sign column (gutter)
     -- (not in youtube nvim video)
