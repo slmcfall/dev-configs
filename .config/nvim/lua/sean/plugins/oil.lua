@@ -30,8 +30,9 @@ return {
       keymaps = {
         ["<C-h>"] = false,
         ["<C-l>"] = false,
-        ["<Leader>ev"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
-        ["<Leader>eh"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },
+        ["<Leader>ov"] = { "actions.select", opts = { vertical = true }, desc = "Open the entry in a vertical split" },
+        ["<Leader>oh"] = { "actions.select", opts = { horizontal = true }, desc = "Open the entry in a horizontal split" },
+        ["<Leader>or"] = "actions.refresh",
 
       },
     })
