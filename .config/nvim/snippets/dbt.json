@@ -1,0 +1,256 @@
+{
+  "block": {
+    "prefix": "block",
+    "body": [
+      "{% block ${1:name} %}",
+      "  $2",
+      "{% endblock %}"
+    ]
+  },
+  "inline block": {
+    "prefix": "inblock",
+    "body": [
+      "{% $1 %}"
+    ]
+  },
+  "inline comment": {
+    "prefix": "comment",
+    "body": [
+      "{#- $1 -#}"
+    ]
+  },
+  "jinja complete variable": {
+    "prefix": "cvar",
+    "body": [
+      "{{ $1 }}"
+    ]
+  },
+  "jinja do": {
+    "prefix": "do",
+    "body": [
+      "{% do $1 %}"
+    ]
+  },
+  "jinja filter": {
+    "prefix": "filter",
+    "body": [
+      "{% filter ${1:filter} %}",
+      "  $2",
+      "{% endfilter %}"
+    ]
+  },
+  "jinja for": {
+    "prefix": "for",
+    "body": [
+      "{% for ${1:item} in ${2:sequence} %}",
+      "  $3",
+      "{% endfor %}"
+    ],
+    "description": "Jinja For"
+  },
+  "jinja for (dict)": {
+    "prefix": "for dict",
+    "body": [
+      "{% for ${1:key}, ${2:value} in ${3:dict}.items() %}",
+      "  $4",
+      "{% endfor %}"
+    ],
+    "description": "Jinja For (Dict)"
+  },
+  "jinja for (list)": {
+    "prefix": "for list",
+    "body": [
+      "{% for ${1:item} in [${2:list}] %}",
+      "  $3",
+      "{% endfor %}"
+    ]
+  },
+  "jinja if": {
+    "prefix": "if",
+    "body": [
+      "{% if ${1:expr} %}",
+      "  $2",
+      "{% endif %}"
+    ]
+  },
+  "jinja macro": {
+    "prefix": "macro",
+    "body": [
+      "{% macro ${1:name}(${2:args}) %}",
+      "  $3",
+      "{% endmacro %}"
+    ]
+  },
+  "Set": {
+    "prefix": "set",
+    "body": "{% set ${1:var} = ${2:value} %}",
+    "description": "Jinja set variable"
+  },
+  "Set Block": {
+    "prefix": "set_block",
+    "body": [
+      "{% set ${1:name} %}",
+      "  $2",
+      "{% endset %}"
+    ]
+  },
+  "dbt snapshot": {
+    "prefix": [
+      "snapshot",
+      "snap"
+    ],
+    "body": [
+      "{% snapshot ${1:snapshot_name} %}",
+      "",
+      "{{",
+      "   config(",
+      "       target_database='${2:target_database}',",
+      "       target_schema='${3:target_schema}',",
+      "       unique_key='${4:unique_key}',",
+      "",
+      "       strategy='${5:strategy}',",
+      "       updated_at='${6:updated_at}',",
+      "   )",
+      "}}",
+      "",
+      "",
+      "{% endsnapshot %}"
+    ]
+  },
+  "dbt config block": {
+    "prefix": "config",
+    "body": [
+      "{{",
+      "  config(",
+      "    materialized = '${1:table}',",
+      "    )",
+      "}}"
+    ]
+  },
+  "dbt incremental config block": {
+    "prefix": "config_incremental",
+    "body": [
+      "{{",
+      "  config(",
+      "    materialized = 'incremental',",
+      "    unique_key = '${1:id}',",
+      "    )",
+      "}}"
+    ]
+  },
+  "dbt athena config block": {
+    "prefix": "config_athena",
+    "body": [
+      "{{",
+      "  config(",
+      "    materialized='incremental',",
+      "    incremental_strategy='append',",
+      "    on_schema_change='append_new_columns',",
+      "    table_type='iceberg',",
+      "    schema='test_schema',",
+      "    lf_tags_config={",
+      "          'enabled': true,",
+      "          'tags': {",
+      "            'tag1': 'value1',",
+      "            'tag2': 'value2'",
+      "          },",
+      "          'tags_columns': {",
+      "            'tag1': {",
+      "              'value1': ['column1', 'column2'],",
+      "              'value2': ['column3', 'column4']",
+      "            }",
+      "          },",
+      "          'inherited_tags': ['tag1', 'tag2']",
+      "    }",
+      "  )",
+      "}}"
+    ]
+  },
+  "Env Var": {
+    "prefix": "env_var",
+    "body": [
+      "{{ env_var(\"${1:env_var_name}\") }}"
+    ]
+  },
+  "Model Overview": {
+    "prefix": "model_overview",
+    "body": [
+      "{#-",
+      "Goal: ${1:high-level objective of the model}",
+      "Granularity: ${2:level of detail of the model}",
+      "Assumptions/Caveats:",
+      "   ${3:- assumptions/caveats if any}",
+      "-#}"
+    ]
+  },
+  "Load Result": {
+    "prefix": "load_result",
+    "body": [
+      "load_result('${1:statement_name}')"
+    ]
+  },
+  "Log": {
+    "prefix": "log",
+    "body": [
+      "{{ log(${1:var}, info=${2|True,False|}) }}"
+    ]
+  },
+  "Log a variable": {
+    "prefix": "log_var",
+    "body": [
+      "{{ log('${1:var}: ' ~ ${1:var}, info=${2|True,False|}) }}"
+    ],
+    "description": "Log a single variable's name and value"
+  },
+  "Statement": {
+    "prefix": "statement",
+    "body": [
+      "{% call statement(${1:name}, fetch_result=${2|True,False|}) %}",
+      "  ${3:select 1}",
+      "{% endcall %}"
+    ]
+  },
+  "Ref": {
+    "prefix": "ref",
+    "body": [
+      "{{ ref('${1:model_name}') }}"
+    ]
+  },
+  "Return": {
+    "prefix": "return",
+    "body": [
+      "{{ return(${1}) }}"
+    ]
+  },
+  "Var": {
+    "prefix": "var",
+    "body": [
+      "{{ var('${1:var_name}') }}"
+    ]
+  },
+  "dbt simple model": {
+    "prefix": "select_dbt",
+    "body": [
+      "select",
+      "   ${1:column} as ${2:column_alias}",
+      "from {{ ref('${3:model_name}') }} as ${4:model_alias}",
+      "where 1=1"
+    ]
+  },
+  "Source": {
+    "prefix": "source",
+    "body": [
+      "{{ source('${1:source}', '${2:table_name}') }}"
+    ]
+  },
+  "Incremental dbt block": {
+    "prefix": "is_incremental",
+    "body": [
+      "{% if is_incremental() %}",
+      "  and ${1:prefix}.${2:date_col} >= coalesce((select max(${2:date_col}) from {{ this }}), '1900-01-01')",
+      "{% else %}",
+      "  ${3:optional_cond}",
+      "{% endif %}"
+    ]
+  }
+}

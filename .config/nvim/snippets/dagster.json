@@ -1,0 +1,10 @@
+{
+  "asset_simple": {
+    "prefix": "ass",
+    "body": [
+      "@asset",
+      "def $1(context: AssetExecutionContext) -> str:",
+      "   raise NotImplementedError"
+    ]
+  }
+}

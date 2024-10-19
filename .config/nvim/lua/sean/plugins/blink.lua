@@ -21,6 +21,9 @@ return {
       -- sets the fallback highlight groups to nvim-cmp's highlight groups
       -- useful for when your theme doesn't support blink.cmp
       -- will be removed in a future release, assuming themes add support
+      --
+      --
+      --
       use_nvim_cmp_as_default = true,
     },
     providers = {
@@ -31,8 +34,8 @@ return {
         score_offset = -3,
         -- similar to https://github.com/garymjr/nvim-snippets
         opts = {
-          friendly_snippets = false,
-          search_paths = { vim.fn.stdpath("config") .. "/lua/sean/plugins/snippets" },
+          friendly_snippets = true,
+          -- search_paths = { vim.fn.stdpath("config") .. "/lua/sean/plugins/snippets" },
           global_snippets = { "all" },
           extended_filetypes = {},
           ignored_filetypes = {},

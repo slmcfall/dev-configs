@@ -1,0 +1,15 @@
+{
+  "name": "my-snippets",
+  "contributes": {
+    "snippets": [
+      {
+        "language": "sql",
+        "path": "./dbt.json"
+      },
+      {
+        "language": "python",
+        "path": "./dagster.json"
+      }
+    ]
+  }
+}
