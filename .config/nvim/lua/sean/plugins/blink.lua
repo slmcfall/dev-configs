@@ -66,7 +66,7 @@ return {
     windows = {
       autocomplete = {
         winhighlight =
-        'bg:BlinkCmpMenu,bg:BlinkCmpMenuBorder,bg:BlinkCmpMenu,bg:BlinkCmpMenuBorder',
+        'bg:BlinkCmpMenu,bg:BlinkCmpMenuBorder,bg:BlinkCmpMenuSelection,Search:None',
         border = 'padded'
       },
       documentation = {
