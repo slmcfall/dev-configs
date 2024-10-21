@@ -6,6 +6,7 @@ return {
 
     auto_session.setup({
       auto_restore_enabled = true,
+      lazy_support = true,
       auto_session_suppress_dirs = { "~/", "~/Dev/", "~/Downloads", "~/Documents", "~/Desktop/" },
     })
 
