@@ -8,7 +8,23 @@ return {
   -- lazy = false,
   branch = "regexp", -- This is the regexp branch, use this for the new version
   config = function()
-    require("venv-selector").setup()
+    local function on_venv_activate()
+      local python_ = require("venv-selector").python()
+      require("neotest").setup({
+        adapters = {
+          require("neotest-python")({
+            python = python_
+          })
+        },
+      })
+    end
+    require("venv-selector").setup {
+      settings = {
+        options = {
+          on_venv_activate_callback = on_venv_activate,
+        },
+      },
+    }
   end,
   keys = {
     { '<leader>vs', '<cmd>VenvSelect<cr>' },
