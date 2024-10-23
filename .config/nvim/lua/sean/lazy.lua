@@ -14,7 +14,10 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
     { import = "sean.plugins" },
     { import = "sean.plugins.colorschemes" },
-    { import = "sean.plugins.lsp" }
+    { import = "sean.plugins.lsp" },
+    { import = "sean.plugins.ui" },
+    { import = "sean.plugins.git" },
+    { import = "sean.plugins.python" },
   },
   {
     checker = {
