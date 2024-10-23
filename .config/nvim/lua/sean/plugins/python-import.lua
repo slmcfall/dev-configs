@@ -3,7 +3,7 @@ return {
   build = "pipx install . --force",
   keys = {
     {
-      "<M-CR>",
+      "<leader>ii",
       function()
         require("python_import.api").add_import_current_word_and_notify()
       end,
@@ -13,7 +13,7 @@ return {
       ft = "python",
     },
     {
-      "<M-CR>",
+      "<leader>ii",
       function()
         require("python_import.api").add_import_current_selection_and_notify()
       end,
@@ -23,7 +23,7 @@ return {
       ft = "python",
     },
     {
-      "<space>i",
+      "<space>iw",
       function()
         require("python_import.api").add_import_current_word_and_move_cursor()
       end,
@@ -33,7 +33,7 @@ return {
       ft = "python",
     },
     {
-      "<space>i",
+      "<space>is",
       function()
         require("python_import.api").add_import_current_selection_and_move_cursor()
       end,

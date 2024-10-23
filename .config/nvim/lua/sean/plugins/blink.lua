@@ -2,28 +2,21 @@ return {
   'saghen/blink.cmp',
   lazy = false, -- lazy loading handled internally
   enabled = true,
-  -- optional: provides snippets for the snippet source
   dependencies = {
+    "rafamadriz/friendly-snippets",
     -- "garymjr/nvim-snippets",
     -- "L3MON4D3/LuaSnip",
-    "rafamadriz/friendly-snippets", -- useful snippets
-    -- "onsails/lspkind.nvim",         -- vs-code like pictograms
+    -- "onsails/lspkind.nvim",               -- vs-code like pictograms
     -- "saadparwaiz1/cmp_luasnip",           -- for autocompletion
-    -- "hrsh7th/cmp-buffer",      -- source for text in buffer
-    -- "hrsh7th/cmp-path",        -- source for file system paths
-    -- "SergioRibera/cmp-dotenv", -- environment variables
+    -- "hrsh7th/cmp-buffer",                 -- source for text in buffer
+    -- "hrsh7th/cmp-path",                   -- source for file system paths
+    -- "SergioRibera/cmp-dotenv",            -- environment variables
     -- "lukas-reineke/cmp-under-comparator", -- sorts __python__ stuff correctly
     -- "hrsh7th/cmp-nvim-lsp-signature-help",
   },
   version = 'v0.*',
   opts = {
     highlight = {
-      -- sets the fallback highlight groups to nvim-cmp's highlight groups
-      -- useful for when your theme doesn't support blink.cmp
-      -- will be removed in a future release, assuming themes add support
-      --
-      --
-      --
       use_nvim_cmp_as_default = true,
     },
     providers = {
@@ -32,10 +25,8 @@ return {
         "blink.cmp.sources.snippets",
         name = "Snippets",
         score_offset = -3,
-        -- similar to https://github.com/garymjr/nvim-snippets
         opts = {
           friendly_snippets = true,
-          -- search_paths = { vim.fn.stdpath("config") .. "/lua/sean/plugins/snippets" },
           global_snippets = { "all" },
           extended_filetypes = {},
           ignored_filetypes = {},
@@ -51,7 +42,7 @@ return {
         "blink.cmp.sources.buffer",
         name = "Buffer",
         keyword_length = 3,
-        fallback_for = { "LSP" }, -- PENDING https://github.com/Saghen/blink.cmp/issues/122
+        fallback_for = { "LSP" },
       },
     },
     keymap = {
@@ -77,9 +68,7 @@ return {
       }
     },
     nerd_font_variant = 'mono',
-    -- experimental auto-brackets support
     accept = { auto_brackets = { enabled = true } },
-    -- experimental signature help support
     trigger = { signature_help = { enabled = true } },
     kind_icons = {
       Text = "󰦨",

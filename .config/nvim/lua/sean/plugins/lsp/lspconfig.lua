@@ -86,23 +86,31 @@ return {
           desc = "Comprehensively reformat Python with Ruff",
           pattern = "python",
           callback = function()
-            vim.keymap.set('n', 'gZ', function()
-              vim.lsp.buf.code_action {
-                context = { only = { 'source.fixAll' }, diagnostics = {} },
-                apply = true,
-              }
-              vim.lsp.buf.format { async = true }
-            end, { desc = 'Format buffer' })
+            vim.lsp.buf.code_action {
+              context = { only = { 'source.fixAll' }, diagnostics = {} },
+              apply = true,
+            }
+            -- vim.lsp.buf.format { async = true }
           end
         })
 
         if client.supports_method("textDocument/formatting") then
           opts.desc = "Format buffer"
-          keymap.set("n", "gz", vim.lsp.buf.format, opts)
+          -- general formatter
           vim.api.nvim_create_autocmd({ "BufWritePre" }, {
             buffer = ev.buf,
             callback = function()
               vim.lsp.buf.format({ async = false })
+            end,
+          })
+          vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+            pattern = { "*.py" },
+            -- buffer = ev.buf,
+            callback = function()
+              vim.lsp.buf.code_action {
+                context = { only = { 'source.organizeImports.ruff' }, diagnostics = {} },
+                apply = true,
+              }
             end,
           })
         end
