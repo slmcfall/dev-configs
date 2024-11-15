@@ -16,43 +16,13 @@ return {
   },
   version = 'v0.*',
   opts = {
+    keymap = {
+      ['<CR>'] = { 'select_and_accept' },
+      ['<C-k>'] = { 'select_prev', 'fallback' },
+      ['<C-j>'] = { 'select_next', 'fallback' },
+    },
     highlight = {
       use_nvim_cmp_as_default = true,
-    },
-    providers = {
-      { "blink.cmp.sources.lsp", name = "LSP" },
-      {
-        "blink.cmp.sources.snippets",
-        name = "Snippets",
-        score_offset = -3,
-        opts = {
-          friendly_snippets = true,
-          global_snippets = { "all" },
-          extended_filetypes = {},
-          ignored_filetypes = {},
-        },
-      },
-      {
-        "blink.cmp.sources.path",
-        name = "Path",
-        score_offset = 3,
-        opts = { get_cwd = vim.uv.cwd },
-      },
-      {
-        "blink.cmp.sources.buffer",
-        name = "Buffer",
-        keyword_length = 3,
-        fallback_for = { "LSP" },
-      },
-    },
-    keymap = {
-      accept = '<CR>',
-      show_documentation = '<C-p>',
-      hide_documentation = '<C-p>',
-      select_next = '<C-j>',
-      select_prev = '<C-k>',
-      snippet_forward = '<Tab>',
-      snippet_backward = '<S-Tab>',
     },
     windows = {
       autocomplete = {

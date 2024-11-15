@@ -56,23 +56,23 @@ case $SELECTED_THEME in
   declare -A THEME=(
     ["background"]="#1f2335" # window name bg, unselected
     ["foreground"]="#a9b1d6" # window name text
-    ["black"]="#414868"
+    ["black"]="#1b1f30"
     ["blue"]="#8f94b4" # session name bg
     ["cyan"]="#7dcfff"
     ["green"]="#73daca"
     ["magenta"]="#bb9af7"
-    ["red"]="#f7768e"
+    ["red"]="#f7768e" 
     ["white"]="#c0caf5"
     ["yellow"]="#e0af68"
 
     ["bblack"]="#151825" # window name bg, selected
-    ["bblue"]="#7aa2f7"
+    ["bblue"]="#7aa2f7"    # normal mode
     ["bcyan"]="#7dcfff"
-    ["bgreen"]="#41a6b5"
-    ["bmagenta"]="#bb9af7"
+    ["bgreen"]="#41a6b5"   # insert mode
+    ["bmagenta"]="#bb9af7" # visual mode
     ["bred"]="#ff9e64"
     ["bwhite"]="#787c99"
-    ["byellow"]="#e0af68"
+    ["byellow"]="#e0af68"  # command mode
   )
   ;;
 esac
