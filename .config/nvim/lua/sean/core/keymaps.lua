@@ -169,5 +169,5 @@ vim.api.nvim_set_keymap('n', '<leader>dbd', [[:lua run_dbt_for_current_buffer("d
 
 vim.keymap.set('n', '<leader>dc', open_compiled_buffer,
   { desc = "Open compiled model", noremap = true, silent = true })
-vim.keymap.set('n', '<leader>dr', open_run_buffer,
+vim.keymap.set('n', '<leader>da', open_run_buffer,
   { desc = "Open run model", noremap = true, silent = true })

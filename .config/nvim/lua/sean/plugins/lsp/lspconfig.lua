@@ -82,17 +82,17 @@ return {
         opts.desc = "Restart LSP"
         keymap.set("n", "g!", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
 
-        vim.api.nvim_create_autocmd("FileType", {
-          desc = "Comprehensively reformat Python with Ruff",
-          pattern = "python",
-          callback = function()
-            vim.lsp.buf.code_action {
-              context = { only = { 'source.fixAll' }, diagnostics = {} },
-              apply = true,
-            }
-            -- vim.lsp.buf.format { async = true }
-          end
-        })
+        -- vim.api.nvim_create_autocmd("FileType", {
+        --   desc = "Comprehensively reformat Python with Ruff",
+        --   pattern = "python",
+        --   callback = function()
+        --     vim.lsp.buf.code_action {
+        --       context = { only = { 'source.fixAll' }, diagnostics = {} },
+        --       apply = true,
+        --     }
+        --     -- vim.lsp.buf.format { async = true }
+        --   end
+        -- })
 
         if client.supports_method("textDocument/formatting") then
           opts.desc = "Format buffer"
@@ -103,16 +103,16 @@ return {
               vim.lsp.buf.format({ async = false })
             end,
           })
-          vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-            pattern = { "*.py" },
-            -- buffer = ev.buf,
-            callback = function()
-              vim.lsp.buf.code_action {
-                context = { only = { 'source.organizeImports.ruff' }, diagnostics = {} },
-                apply = true,
-              }
-            end,
-          })
+          -- vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+          --   pattern = { "*.py" },
+          --   -- buffer = ev.buf,
+          --   callback = function()
+          --     vim.lsp.buf.code_action {
+          --       context = { only = { 'source.organizeImports.ruff' }, diagnostics = {} },
+          --       apply = true,
+          --     }
+          --   end,
+          -- })
         end
       end,
     })
@@ -133,26 +133,26 @@ return {
     ---------
     local configs = require('lspconfig.configs')
 
-    -- if not configs.dbtls then
-    --   configs.dbtls = {
-    --     default_config = {
-    --       root_dir = lspconfig.util.root_pattern('dbt_project.yml'),
-    --       cmd = { 'dbt-language-server', '--stdio' },
-    --       filetypes = { "sql", "yml", "yaml" },
-    --       init_options = {
-    --         pythonInfo = {
-    --           -- TODO: set this to hook into venv-selector (will probably need to use latest venv-selector branch)
-    --           path =
-    --           '/Users/seanmcfall/Library/Caches/pypoetry/virtualenvs/mindoula-data-IMI5OIww-py3.12/bin/python'
-    --         },
-    --         lspMode = 'dbtProject',
-    --         enableSnowflakeSyntaxCheck = false
-    --       }
-    --     },
-    --   }
-    -- end
-    --
-    -- lspconfig.dbtls.setup {}
+    if not configs.dbtls then
+      configs.dbtls = {
+        default_config = {
+          root_dir = lspconfig.util.root_pattern('dbt_project.yml'),
+          cmd = { 'dbt-language-server', '--stdio' },
+          filetypes = { "sql", "yml", "yaml" },
+          init_options = {
+            pythonInfo = {
+              -- TODO: set this to hook into venv-selector (will probably need to use latest venv-selector branch)
+              path =
+              '/Users/seanmcfall/Library/Caches/pypoetry/virtualenvs/mindoula-data-IMI5OIww-py3.12/bin/python'
+            },
+            lspMode = 'dbtProject',
+            enableSnowflakeSyntaxCheck = false
+          }
+        },
+      }
+    end
+
+    lspconfig.dbtls.setup {}
 
 
 
