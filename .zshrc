@@ -147,6 +147,9 @@ alias md="cd ~/.local/share/nvim/lazy/markdown-preview.nvim && npm install"
 # tmux
 alias tksa="tmux kill-session -a"
 
+# python cleanup 
+alias pythonclean='find . -type d -name "__pycache__" -exec rm -r {} +'
+
 # EXPORTS
 export DAGSTER_HOME="/Users/seanmcfall/workspace/mindoula.data"
 export AWS_REGION="us-east-1"

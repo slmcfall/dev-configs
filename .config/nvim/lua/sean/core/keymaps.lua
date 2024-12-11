@@ -44,6 +44,11 @@ keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number" }) -- decremen
 keymap.set("n", "<leader>bs", ":%s/", { desc = "Search/Replace buffer" })
 keymap.set("n", ";", ":<C-f>", { desc = "CMD mode editor" })
 
+-------------
+-- BUFFERS --
+-------------
+keymap.set("n", "<leader>bb", "<cmd>b#<CR>", { desc = "Navigate to last accessed buffer" })
+
 ------------
 -- SPLITS --
 ------------
