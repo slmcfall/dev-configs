@@ -10,7 +10,7 @@ config.colors = {
   background = '#1b1f30'
 }
 config.font = wezterm.font 'BlexMono Nerd Font Mono'
-config.font_size = 16
+config.font_size = 13
 config.hide_tab_bar_if_only_one_tab = true
 -- config.window_background_opacity = 0.8
 -- config.macos_window_background_blur = 20

@@ -14,10 +14,10 @@ return {
     -- "lukas-reineke/cmp-under-comparator", -- sorts __python__ stuff correctly
     -- "hrsh7th/cmp-nvim-lsp-signature-help",
   },
-  version = 'v0.*',
+  version = 'v0.5.0',
   opts = {
     keymap = {
-      ['<CR>'] = { 'select_and_accept' },
+      ['<C-y>'] = { 'select_and_accept' },
       ['<C-k>'] = { 'select_prev', 'fallback' },
       ['<C-j>'] = { 'select_next', 'fallback' },
     },
