@@ -2,7 +2,12 @@ return {
   {
     "echasnovski/mini.nvim",
     config = function()
-      require("mini.ai").setup() -- a(round)i(nner), not AI
+      require("mini.ai").setup({
+        custom_textobjects = { -- Whole buffer
+          s = { '%{%{().-()%}%}' }
+
+        }
+      }) -- a(round)i(nner), not AI
       require("mini.surround").setup()
       -- require("mini.operators").setup()
       require("mini.jump2d").setup({
