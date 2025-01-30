@@ -152,27 +152,62 @@ end
 
 -- run
 vim.api.nvim_set_keymap('n', '<leader>drm', [[:lua run_dbt_for_current_buffer("dbt run -m")<CR>]],
-  { noremap = true, silent = true })
+  { noremap = true, silent = true, desc = "model" })
 vim.api.nvim_set_keymap('n', '<leader>dru', [[:lua run_dbt_for_current_buffer("dbt run -m", true, false)<CR>]],
-  { noremap = true, silent = true })
+  { noremap = true, silent = true, desc = "model + upstream" })
 vim.api.nvim_set_keymap('n', '<leader>drd', [[:lua run_dbt_for_current_buffer("dbt run -m", false, true)<CR>]],
-  { noremap = true, silent = true })
+  { noremap = true, silent = true, desc = "model + downstream" })
 -- test
 vim.api.nvim_set_keymap('n', '<leader>dtm', [[:lua run_dbt_for_current_buffer("dbt test -s")<CR>]],
-  { noremap = true, silent = true })
+  { noremap = true, silent = true, desc = "model" })
 vim.api.nvim_set_keymap('n', '<leader>dtu', [[:lua run_dbt_for_current_buffer("dbt test -s", true, false)<CR>]],
-  { noremap = true, silent = true })
+  { noremap = true, silent = true, desc = "model + upstream" })
 vim.api.nvim_set_keymap('n', '<leader>dtd', [[:lua run_dbt_for_current_buffer("dbt test -s", false, true)<CR>]],
-  { noremap = true, silent = true })
+  { noremap = true, silent = true, desc = "model + downstream" })
 -- build
 vim.api.nvim_set_keymap('n', '<leader>dbm', [[:lua run_dbt_for_current_buffer("dbt build -s")<CR>]],
-  { noremap = true, silent = true })
+  { noremap = true, silent = true, desc = "model" })
 vim.api.nvim_set_keymap('n', '<leader>dbu', [[:lua run_dbt_for_current_buffer("dbt build -s", true, false)<CR>]],
-  { noremap = true, silent = true })
+  { noremap = true, silent = true, desc = "model + upstream" })
 vim.api.nvim_set_keymap('n', '<leader>dbd', [[:lua run_dbt_for_current_buffer("dbt build -s", false, true)<CR>]],
-  { noremap = true, silent = true })
+  { noremap = true, silent = true, desc = "model + downstream" })
 
 vim.keymap.set('n', '<leader>dc', open_compiled_buffer,
   { desc = "Open compiled model", noremap = true, silent = true })
 vim.keymap.set('n', '<leader>da', open_run_buffer,
   { desc = "Open run model", noremap = true, silent = true })
+
+
+------
+--- sqlfluff
+---
+function _G.run_sqlfluff_for_current_buffer(sqlfluff_run_command, on_directory)
+  sqlfluff_run_command = sqlfluff_run_command or "sqlfluff lint"
+  local model_name = vim.fn.expand('%:p')
+  local buffer_dir = vim.fn.getcwd()
+  if on_directory then
+    model_name = string.sub(model_name, 7)
+  end
+
+  local sqlfluff_command = string.format('cd %s && poetry run %s %s -v', buffer_dir, sqlfluff_run_command,
+    model_name)
+  local escaped_command = sqlfluff_command:gsub("'", "'\\''")
+  local tmux_command = string.format(
+    "tmux split-window -v 'source ~/.zshrc; echo \"Running: %s\"; %s; echo \"Press enter to close\"; read'",
+    escaped_command,
+    escaped_command
+  )
+  vim.fn.system(tmux_command)
+end
+
+vim.api.nvim_set_keymap('n', '<leader>dslf', [[:lua run_sqlfluff_for_current_buffer("sqlfluff lint", false)<CR>]],
+  { noremap = true, silent = true, desc = "sqlfluff lint" })
+
+vim.api.nvim_set_keymap('n', '<leader>dsld', [[:lua run_sqlfluff_for_current_buffer("sqlfluff lint", true)<CR>]],
+  { noremap = true, silent = true, desc = "sqlfluff lint current directory" })
+
+vim.api.nvim_set_keymap('n', '<leader>dsff', [[:lua run_sqlfluff_for_current_buffer("sqlfluff fix", false)<CR>]],
+  { noremap = true, silent = true, desc = "sqlfluff fix" })
+
+vim.api.nvim_set_keymap('n', '<leader>dsfd', [[:lua run_sqlfluff_for_current_buffer("sqlfluff fix", true)<CR>]],
+  { noremap = true, silent = true, desc = "sqlfluff fix current directory" })

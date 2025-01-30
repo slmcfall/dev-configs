@@ -9,7 +9,7 @@ return {
         }
       }) -- a(round)i(nner), not AI
       require("mini.surround").setup()
-      -- require("mini.operators").setup()
+      require("mini.operators").setup()
       require("mini.jump2d").setup({
         vim.api.nvim_set_hl(0, 'MiniJump2dSpot', { fg = "#ff757f" }),
         mappings = {

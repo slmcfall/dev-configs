@@ -77,12 +77,12 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting web-search direnv)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting web-search direnv vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-
+VI_MODE_SET_CURSOR=true
 # zsh suggestion auto complete binding
 bindkey '^[[Z' autosuggest-accept
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -157,3 +157,6 @@ export PYTHONDONTWRITEBYTECODE=1
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/seanmcfall/.lmstudio/bin"
