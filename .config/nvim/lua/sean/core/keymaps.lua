@@ -73,7 +73,7 @@ keymap.set("n", "<leader>tp", "<cmd>tabp<CR>", { desc = "Go to previous tab" })
 ------------
 -- macros --
 ------------
-keymap.set("n", "<leader>ae", "<C-V>lllllljjxA<BS><ESC>jA<BS><ESC><cmd>w<CR>", { desc = "Format aws env var creds" })
+keymap.set("n", "<leader>ae", "<C-V>lllllljjxA<BS><ESC>jA<BS><ESC><cmd>w<CR><ESC>", { desc = "Format aws env var creds" })
 
 
 
