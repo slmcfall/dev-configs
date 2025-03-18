@@ -26,7 +26,7 @@ keymap.set('n', '<C-t>', '<Nop>')
 --------------------------------------
 
 -- put most recent yank
--- keymap.set("n", "<leader>p", '"0p', { desc = "Put most recent yank" })
+keymap.set("n", "<leader>p", '"0p', { desc = "Put most recent yank" })
 
 -- save file
 keymap.set("n", "<leader>ww", "<cmd>w<CR>", { desc = "Save file" })

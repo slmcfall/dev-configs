@@ -21,51 +21,25 @@ return {
       ['<C-k>'] = { 'select_prev', 'fallback' },
       ['<C-j>'] = { 'select_next', 'fallback' },
     },
-    highlight = {
+    appearance = {
       use_nvim_cmp_as_default = true,
+      nerd_font_variant = 'mono'
     },
-    windows = {
-      autocomplete = {
+    completion = {
+      menu = {
         winhighlight =
         'bg:BlinkCmpMenu,bg:BlinkCmpMenuBorder,bg:BlinkCmpMenuSelection,Search:None',
-        border = 'padded'
+        border = 'padded',
+        scrollbar = false
       },
       documentation = {
-        min_width = 10,
-        max_width = 100,
-        max_height = 30,
-        border = 'single',
+        window = {
+          min_width = 10,
+          max_width = 100,
+          max_height = 30,
+          border = 'single',
+        }
       }
-    },
-    nerd_font_variant = 'mono',
-    accept = { auto_brackets = { enabled = true } },
-    trigger = { signature_help = { enabled = true } },
-    kind_icons = {
-      Text = "󰦨",
-      Method = "󰊕",
-      Function = "󰊕",
-      Constructor = "",
-      Field = "󰇽",
-      Variable = "󰂡",
-      Class = "󰢐",
-      Interface = "",
-      Module = "",
-      Property = "󰜢",
-      Unit = "",
-      Value = "󰎠",
-      Enum = "",
-      Keyword = "󰌋",
-      Snippet = "",
-      Color = "󰏘",
-      Reference = "",
-      File = "󰉋",
-      Folder = "󰉋",
-      EnumMember = "",
-      Constant = "󰏿",
-      Struct = "",
-      Event = "",
-      Operator = "󰆕",
-      TypeParameter = "󰅲",
     },
   },
 }
