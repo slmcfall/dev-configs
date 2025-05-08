@@ -216,6 +216,12 @@
       "{{ ref('${1:model_name}') }}"
     ]
   },
+  "null column": {
+    "prefix": "cn",
+    "body": [
+      "cast(null as varchar) as ${1:col_name}",
+    ]
+  },
   "Return": {
     "prefix": "return",
     "body": [

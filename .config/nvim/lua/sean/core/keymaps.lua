@@ -44,10 +44,17 @@ keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number" }) -- decremen
 keymap.set("n", "<leader>bs", ":%s/", { desc = "Search/Replace buffer" })
 keymap.set("n", ";", ":<C-f>", { desc = "CMD mode editor" })
 
+keymap.set("n", "ycc", "yygccp", { desc = "comment + duplicate line", remap = true })
+
+keymap.set("x", "/", "<Esc>/\\%V", { desc = "search only visual selection" })
+
 -------------
 -- BUFFERS --
 -------------
 keymap.set("n", "<leader>bb", "<cmd>b#<CR>", { desc = "Navigate to last accessed buffer" })
+
+keymap.set('n', '<leader>ya', 'mzggVGy`z',
+  { desc = "yank entire buffer, return cursor to original position", noremap = true, silent = true })
 
 ------------
 -- SPLITS --
@@ -143,7 +150,7 @@ function _G.run_dbt_for_current_buffer(dbt_run_command, upstream, downstream)
     model_name, buffer_dir)
   local escaped_command = dbt_command:gsub("'", "'\\''")
   local tmux_command = string.format(
-    "tmux split-window -v 'source ~/.zshrc; echo \"Running: %s\"; %s; echo \"Press enter to close\"; read'",
+    "tmux popup 'source ~/.zshrc; echo \"Running: %s\"; %s; echo \"Press Ctrl+c to close\"; read'",
     escaped_command,
     escaped_command
   )
@@ -193,7 +200,7 @@ function _G.run_sqlfluff_for_current_buffer(sqlfluff_run_command, on_directory)
     model_name)
   local escaped_command = sqlfluff_command:gsub("'", "'\\''")
   local tmux_command = string.format(
-    "tmux split-window -v 'source ~/.zshrc; echo \"Running: %s\"; %s; echo \"Press enter to close\"; read'",
+    "tmux popup 'source ~/.zshrc; echo \"Running: %s\"; %s; echo \"Press Ctrl+c to close\"; read'",
     escaped_command,
     escaped_command
   )
