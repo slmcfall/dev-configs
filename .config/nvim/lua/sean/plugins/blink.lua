@@ -1,6 +1,5 @@
 return {
   'saghen/blink.cmp',
-  lazy = false, -- lazy loading handled internally
   enabled = true,
   dependencies = {
     "rafamadriz/friendly-snippets",
@@ -14,32 +13,22 @@ return {
     -- "lukas-reineke/cmp-under-comparator", -- sorts __python__ stuff correctly
     -- "hrsh7th/cmp-nvim-lsp-signature-help",
   },
-  version = 'v0.5.0',
+  version = '1.*',
   opts = {
     keymap = {
+      preset = 'default',
       ['<C-y>'] = { 'select_and_accept' },
       ['<C-k>'] = { 'select_prev', 'fallback' },
       ['<C-j>'] = { 'select_next', 'fallback' },
     },
     appearance = {
-      use_nvim_cmp_as_default = true,
       nerd_font_variant = 'mono'
     },
-    completion = {
-      menu = {
-        winhighlight =
-        'bg:BlinkCmpMenu,bg:BlinkCmpMenuBorder,bg:BlinkCmpMenuSelection,Search:None',
-        border = 'padded',
-        scrollbar = false
-      },
-      documentation = {
-        window = {
-          min_width = 10,
-          max_width = 100,
-          max_height = 30,
-          border = 'single',
-        }
-      }
+    completion = { documentation = { auto_show = false } },
+    sources = {
+      default = { 'lsp', 'path', 'snippets', 'buffer' },
     },
+    fuzzy = { implementation = "prefer_rust_with_warning" }
   },
+  opts_extend = { "sources.default" }
 }

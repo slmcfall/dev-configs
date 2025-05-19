@@ -146,12 +146,11 @@ function _G.run_dbt_for_current_buffer(dbt_run_command, upstream, downstream)
     model_name = model_name .. "+"
   end
 
-  local dbt_command = string.format('cd %s && poetry run %s %s --profiles-dir %s', buffer_dir, dbt_run_command,
+  local dbt_command = string.format('cd %s && clear && poetry run %s %s --profiles-dir %s', buffer_dir, dbt_run_command,
     model_name, buffer_dir)
   local escaped_command = dbt_command:gsub("'", "'\\''")
   local tmux_command = string.format(
-    "tmux popup 'source ~/.zshrc; echo \"Running: %s\"; %s; echo \"Press Ctrl+c to close\"; read'",
-    escaped_command,
+    "tmux popup 'source ~/.zshrc; %s; echo \"Press Ctrl+c to close\"; read'",
     escaped_command
   )
   vim.fn.system(tmux_command)
