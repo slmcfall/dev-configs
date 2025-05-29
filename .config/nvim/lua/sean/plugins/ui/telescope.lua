@@ -86,6 +86,14 @@ return {
     keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Fuzzy find files in cwd" })
     keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Fuzzy find recent files" })
     keymap.set("n", "<leader>fg", "<cmd>Telescope git_files<cr>", { desc = "Fuzzy find files in git repo" })
+
+    -- keymap.set("n", "<leader>gb", "<cmd>Telescope git_branches<cr>", { desc = "Git branch picker" })
+    keymap.set('n', '<leader>gb', function()
+      require('telescope.builtin').git_branches({
+        git_command = { 'git', 'for-each-ref', '--all', '--sort=-committerdate', 'refs/heads', "--format='%(refname:short)'" },
+      })
+    end, { desc = 'Git branches (by commit date)' })
+
     keymap.set("n", "<leader><leader>", "<cmd>Telescope git_files<cr>", { desc = "Fuzzy find files in git repo" })
     keymap.set('n', '<leader>fb', function()
       builtin.find_files({ default_text = vim.fn.expand('<cword>') })
