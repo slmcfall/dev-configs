@@ -19,10 +19,8 @@ return {
       })
     end
     require("venv-selector").setup {
-      settings = {
-        options = {
-          on_venv_activate_callback = on_venv_activate,
-        },
+      options = {
+        on_venv_activate_callback = on_venv_activate,
       },
     }
   end,

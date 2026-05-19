@@ -24,6 +24,7 @@ return {
         "ruff",
         "jsonls",
       },
+      automatic_enable = false,
     })
   end,
 }

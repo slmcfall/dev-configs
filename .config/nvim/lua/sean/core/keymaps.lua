@@ -48,6 +48,10 @@ keymap.set("n", "ycc", "yygccp", { desc = "comment + duplicate line", remap = tr
 
 keymap.set("x", "/", "<Esc>/\\%V", { desc = "search only visual selection" })
 
+-- Swap Ctrl+I and Ctrl+O (jump list navigation)
+keymap.set("n", "<C-i>", "<C-o>", { noremap = true, desc = "Jump backward (swapped)" })
+keymap.set("n", "<C-o>", "<C-i>", { noremap = true, desc = "Jump forward (swapped)" })
+
 -------------
 -- BUFFERS --
 -------------
@@ -132,7 +136,7 @@ local function open_run_buffer()
 end
 
 function _G.run_dbt_for_current_buffer(dbt_run_command, upstream, downstream)
-  dbt_run_command = dbt_run_command or "dbt run -m"
+  dbt_run_command = dbt_run_command or "dbt run -s"
   upstream = upstream or false
   downstream = downstream or false
 
@@ -157,11 +161,11 @@ function _G.run_dbt_for_current_buffer(dbt_run_command, upstream, downstream)
 end
 
 -- run
-vim.api.nvim_set_keymap('n', '<leader>drm', [[:lua run_dbt_for_current_buffer("dbt run -m")<CR>]],
+vim.api.nvim_set_keymap('n', '<leader>drm', [[:lua run_dbt_for_current_buffer("dbt run -s")<CR>]],
   { noremap = true, silent = true, desc = "model" })
-vim.api.nvim_set_keymap('n', '<leader>dru', [[:lua run_dbt_for_current_buffer("dbt run -m", true, false)<CR>]],
+vim.api.nvim_set_keymap('n', '<leader>dru', [[:lua run_dbt_for_current_buffer("dbt run -s", true, false)<CR>]],
   { noremap = true, silent = true, desc = "model + upstream" })
-vim.api.nvim_set_keymap('n', '<leader>drd', [[:lua run_dbt_for_current_buffer("dbt run -m", false, true)<CR>]],
+vim.api.nvim_set_keymap('n', '<leader>drd', [[:lua run_dbt_for_current_buffer("dbt run -s", false, true)<CR>]],
   { noremap = true, silent = true, desc = "model + downstream" })
 -- test
 vim.api.nvim_set_keymap('n', '<leader>dtm', [[:lua run_dbt_for_current_buffer("dbt test -s")<CR>]],
@@ -217,3 +221,14 @@ vim.api.nvim_set_keymap('n', '<leader>dsff', [[:lua run_sqlfluff_for_current_buf
 
 vim.api.nvim_set_keymap('n', '<leader>dsfd', [[:lua run_sqlfluff_for_current_buffer("sqlfluff fix", true)<CR>]],
   { noremap = true, silent = true, desc = "sqlfluff fix current directory" })
+
+
+------
+---
+--- migration crap
+---
+vim.keymap.set('n', '<leader>rr', function()
+  vim.cmd([[%s/{raw_\(\w\+\)_catalog}\.\1_public_\(\w\+\) \(\w\+\)/{{ ref('stg_\2__\1') }} as \3/g]])
+  -- Print confirmation message
+  vim.api.nvim_echo({ { 'Transformed raw catalog references to ref format', 'Normal' } }, true, {})
+end, { desc = "Replace raw catalog refs with ref format" })

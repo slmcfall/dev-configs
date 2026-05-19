@@ -22,23 +22,21 @@ local config = {
 }
 vim.diagnostic.config(config)
 
--- Disable the default keybinds {{{
-for _, bind in ipairs({ "grn", "gra", "gri", "grr" }) do
-  pcall(vim.keymap.del, "n", bind)
-end
-
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("UserLspConfig", {}),
   callback = function(ev)
-    -- Buffer local mappings.
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
     local opts = { buffer = ev.buf, silent = true }
     local client = vim.lsp.get_client_by_id(ev.data.client_id)
-    local keymap = vim.keymap
-    local which_key = require("which-key")
 
-    ---[[ Format and autoimport on Save
+    -- Delete nvim 0.11+ buffer-local default keymaps we override below
+    for _, bind in ipairs({ "grn", "gra", "gri", "grr" }) do
+      pcall(vim.keymap.del, "n", bind, { buffer = ev.buf })
+    end
+    local keymap = vim.keymap
+
+    ---[[ Format on Save
     vim.api.nvim_create_autocmd("BufWritePre", {
+      group = vim.api.nvim_create_augroup("LspFormat_" .. ev.buf .. "_" .. ev.data.client_id, { clear = true }),
       buffer = ev.buf,
       callback = function()
         if client:supports_method("textDocument/formatting") then
@@ -73,12 +71,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts) -- show lsp implementations
 
     opts.desc = "Show LSP type definitions"
-    which_key.add(
-      {
-        { "<leader>l", group = "lsp", icon = "󰢱" },
-        { "<leader>lt", "<cmd>Telescope lsp_type_definitions<CR>", opts },
-      }
-    )
+    keymap.set("n", "<leader>lt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
 
     opts.desc = "See available code actions"
     keymap.set({ "n", "v" }, "ga", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
@@ -106,6 +99,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
+-- Register which-key LSP group once (not per-buffer-attach)
+vim.schedule(function()
+  local ok, which_key = pcall(require, "which-key")
+  if ok then
+    which_key.add({ { "<leader>l", group = "lsp", icon = "󰢱" } })
+  end
+end)
+
 -- Lua {{{
 vim.lsp.config.lua_ls = {
   cmd = { "lua-language-server" },
@@ -129,6 +130,18 @@ vim.lsp.config.lua_ls = {
 vim.lsp.enable("lua_ls")
 -- }}}
 
+
+
+
+-- dbt {{{
+vim.lsp.config.dbt = {
+  cmd = { '/Users/seanmcfall/.local/bin/dbt-language-server' },
+  filetypes = { "sql", "yaml" },
+  root_markers = { "dbt_project.yml" },
+}
+vim.lsp.enable("dbt")
+-- }}}
+
 -- JSON {{{
 vim.lsp.config.jsonls = {
   cmd = { 'vscode-json-language-server', '--stdio' },
@@ -138,6 +151,7 @@ vim.lsp.config.jsonls = {
   },
   root_markers = { '.git' },
 }
+vim.lsp.enable("jsonls")
 -- }}}
 
 -- PYTHON {{{

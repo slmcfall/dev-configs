@@ -16,6 +16,7 @@ return {
       -- ensure these language parsers are installed
       ensure_installed = {
         "json",
+        "toml",
         "yaml",
         "markdown",
         "markdown_inline",
@@ -25,6 +26,8 @@ return {
         "dockerfile",
         "gitignore",
         "vimdoc",
+        "regex",
+        "ini",
         "sql",
         "python",
         "terraform",
