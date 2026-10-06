@@ -1,5 +1,15 @@
 ; inherits: jinja
 
+; {{ }} expression delimiters (colored in colorschemes/tokyonight.lua)
+[
+  "{{"
+  "{{-"
+  "{{+"
+  "}}"
+  "-}}"
+  "+}}"
+] @punctuation.special.braces
+
 ; dbt jinja context: https://docs.getdbt.com/reference/dbt-jinja-functions
 (function_call
   (identifier) @function.builtin

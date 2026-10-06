@@ -37,6 +37,10 @@ return { -- neomodern
           c.fg_gutter = colors.fg_gutter
           c.fg_sidebar = colors.fg_dark
         end,
+        on_highlights = function(hl)
+          -- dbt/jinja {{ }} (queries/dbt/highlights.scm)
+          hl["@punctuation.special.braces.dbt"] = { fg = "#FF4A4A", bold = true }
+        end,
       })
 
       -- load the colorscheme here
