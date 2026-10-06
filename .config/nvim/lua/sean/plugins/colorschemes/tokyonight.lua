@@ -1,4 +1,4 @@
-return { -- neomodern
+return {
   {
     "folke/tokyonight.nvim",
     lazy = false,

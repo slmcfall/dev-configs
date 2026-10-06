@@ -1,9 +1,6 @@
 return {
   "linux-cultist/venv-selector.nvim",
   ft = "python",
-  dependencies = {
-    "neovim/nvim-lspconfig",
-  },
   config = function()
     local function on_venv_activate()
       local python_ = require("venv-selector").python()

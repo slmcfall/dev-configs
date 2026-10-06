@@ -7,7 +7,6 @@ return {
   },
   ft = {
     "sql",
-    "md",
     "yaml",
   },
   keys = {

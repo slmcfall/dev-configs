@@ -63,8 +63,6 @@ keymap.set('n', '<leader>ya', 'mzggVGy`z',
 ------------
 -- SPLITS --
 ------------
--- open select file in tree in new VERTICAL split: ctrl+v
--- open select file in tree in new HORIZONAL split: ctrl+x
 keymap.set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" })
 keymap.set("n", "<leader>sh", "<C-w>s", { desc = "Split window horizontally" })
 keymap.set("n", "<leader>se", "<C-w>=", { desc = "Make splits equal size" })
@@ -91,47 +89,64 @@ keymap.set("n", "<leader>ae", "<C-V>lllllljjxA<BS><ESC>jA<BS><ESC><cmd>w<CR><ESC
 ----------
 -- dbt --
 ----------
-local function open_compiled_buffer()
-  -- Get the current buffer's full path
-  local current_path = vim.api.nvim_buf_get_name(0)
-  print("Current path: " .. current_path)
-
-  -- Transform the path
-  local compiled_path = current_path:gsub(
-    "^(.*/mindoula_dbt_athena)/models/(.*)$",
-    "%1/target/compiled/mindoula_dbt_athena/models/%2"
-  )
-  print("Compiled path after gsub: " .. compiled_path)
-
-  -- Check if the compiled file exists
-  if vim.fn.filereadable(compiled_path) == 1 then
-    -- Open the compiled file in a new buffer
-    vim.cmd('vsplit ' .. vim.fn.fnameescape(compiled_path))
-    print("Opened compiled file: " .. compiled_path)
-  else
-    print("Compiled file not found: " .. compiled_path)
+-- read a top-level scalar (e.g. `name`, `target-path`) from dbt_project.yml
+local function dbt_project_value(root, key)
+  local ok, lines = pcall(vim.fn.readfile, root .. "/dbt_project.yml")
+  if not ok then return nil end
+  for _, line in ipairs(lines) do
+    line = line:gsub("%s+#.*$", "")
+    local value = line:match("^" .. vim.pesc(key) .. ":%s*['\"]?([^'\"]-)['\"]?%s*$")
+    if value and value ~= "" then return value end
   end
 end
 
-local function open_run_buffer()
-  -- Get the current buffer's full path
-  local current_path = vim.api.nvim_buf_get_name(0)
-  print("Current path: " .. current_path)
+-- open the compiled/run version of the current model, or jump back to the source
+-- when already in one. target files live at:
+--   <project>/<target-path>/<kind>/<package name>/<path relative to the package>
+local function open_dbt_target_file(kind)
+  local file = vim.api.nvim_buf_get_name(0)
+  -- search from the file path, not the buffer: vim.fs.root(0) falls back to cwd for
+  -- buffers with a buftype (dbtpal marks compiled files buftype=nowrite)
+  local root = file ~= "" and vim.fs.root(file, "dbt_project.yml")
+  if not root then
+    vim.notify("Not in a dbt project", vim.log.levels.WARN)
+    return
+  end
 
-  -- Transform the path
-  local compiled_path = current_path:gsub(
-    "^(.*/mindoula_dbt_athena)/models/(.*)$",
-    "%1/target/run/mindoula_dbt_athena/models/%2"
-  )
-  print("Compiled path after gsub: " .. compiled_path)
+  -- models from installed packages compile into the outer project's target dir
+  local project = root:match("^(.*)/dbt_packages/[^/]+$") or root
+  local target = vim.env.DBT_TARGET_PATH or dbt_project_value(project, "target-path") or "target"
+  if not vim.startswith(target, "/") then target = project .. "/" .. target end
 
-  -- Check if the compiled file exists
-  if vim.fn.filereadable(compiled_path) == 1 then
-    -- Open the compiled file in a new buffer
-    vim.cmd('vsplit ' .. vim.fn.fnameescape(compiled_path))
-    print("Opened run file: " .. compiled_path)
+  local path
+  local in_target = file:sub(1, #target + 1) == target .. "/" and file:sub(#target + 2)
+  if in_target then
+    -- compiled/<pkg>/<rel> or run/<pkg>/<rel> -> source file
+    local pkg, rel = in_target:match("^[^/]+/([^/]+)/(.+)$")
+    if not pkg then return end
+    local own = dbt_project_value(project, "name")
+    path = (pkg == own and project or project .. "/dbt_packages/" .. pkg) .. "/" .. rel
   else
-    print("Compiled run not found: " .. compiled_path)
+    local name = dbt_project_value(root, "name")
+    if not name then
+      vim.notify("Couldn't read `name` from " .. root .. "/dbt_project.yml", vim.log.levels.WARN)
+      return
+    end
+    path = table.concat({ target, kind, name, file:sub(#root + 2) }, "/")
+  end
+
+  if vim.fn.filereadable(path) == 0 then
+    local hint = in_target and "" or (kind == "run" and " (run `dbt run` first)" or " (run `dbt compile` first)")
+    vim.notify("Not found: " .. vim.fn.fnamemodify(path, ":~:.") .. hint, vim.log.levels.WARN)
+    return
+  end
+
+  -- reuse a window already showing the file
+  local win = vim.fn.bufwinid(vim.fn.bufnr(path))
+  if win ~= -1 then
+    vim.api.nvim_set_current_win(win)
+  else
+    vim.cmd("vsplit " .. vim.fn.fnameescape(path))
   end
 end
 
@@ -183,10 +198,10 @@ vim.api.nvim_set_keymap('n', '<leader>dbu', [[:lua run_dbt_for_current_buffer("d
 vim.api.nvim_set_keymap('n', '<leader>dbd', [[:lua run_dbt_for_current_buffer("dbt build -s", false, true)<CR>]],
   { noremap = true, silent = true, desc = "model + downstream" })
 
-vim.keymap.set('n', '<leader>dc', open_compiled_buffer,
-  { desc = "Open compiled model", noremap = true, silent = true })
-vim.keymap.set('n', '<leader>da', open_run_buffer,
-  { desc = "Open run model", noremap = true, silent = true })
+vim.keymap.set('n', '<leader>dc', function() open_dbt_target_file("compiled") end,
+  { desc = "Open compiled model (or back to source)", noremap = true, silent = true })
+vim.keymap.set('n', '<leader>da', function() open_dbt_target_file("run") end,
+  { desc = "Open run model (or back to source)", noremap = true, silent = true })
 
 
 ------
@@ -194,11 +209,9 @@ vim.keymap.set('n', '<leader>da', open_run_buffer,
 ---
 function _G.run_sqlfluff_for_current_buffer(sqlfluff_run_command, on_directory)
   sqlfluff_run_command = sqlfluff_run_command or "sqlfluff lint"
-  local model_name = vim.fn.expand('%:p')
+  -- the current file, or its directory
+  local model_name = vim.fn.expand(on_directory and '%:p:h' or '%:p')
   local buffer_dir = vim.fn.getcwd()
-  if on_directory then
-    model_name = string.sub(model_name, 7)
-  end
 
   -- shellescape: file/dir names must never be interpreted by the shell
   local sqlfluff_command = string.format('cd %s && poetry run %s %s -v', vim.fn.shellescape(buffer_dir),
@@ -224,14 +237,3 @@ vim.api.nvim_set_keymap('n', '<leader>dsff', [[:lua run_sqlfluff_for_current_buf
 
 vim.api.nvim_set_keymap('n', '<leader>dsfd', [[:lua run_sqlfluff_for_current_buffer("sqlfluff fix", true)<CR>]],
   { noremap = true, silent = true, desc = "sqlfluff fix current directory" })
-
-
-------
----
---- migration crap
----
-vim.keymap.set('n', '<leader>rr', function()
-  vim.cmd([[%s/{raw_\(\w\+\)_catalog}\.\1_public_\(\w\+\) \(\w\+\)/{{ ref('stg_\2__\1') }} as \3/g]])
-  -- Print confirmation message
-  vim.api.nvim_echo({ { 'Transformed raw catalog references to ref format', 'Normal' } }, true, {})
-end, { desc = "Replace raw catalog refs with ref format" })

@@ -2,8 +2,6 @@ return {
   {
     'Bekaboo/dropbar.nvim',
     dependencies = { "folke/tokyonight.nvim", },
-    -- optional, but required for fuzzy finder support
-    -- opts = { bar = { enable = true } },
     config = function()
       require('dropbar').setup({
         icons = {

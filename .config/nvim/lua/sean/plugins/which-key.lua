@@ -18,8 +18,7 @@ return {
       ------------
       -- GROUPS --
       ------------
-      { "<leader>m", group = "+markdown" },
-      { "<leader>e", group = "+file explorer | Nvim-Tree", icon = "󰙅" },
+      { "<leader>e", group = "+file explorer | Oil", icon = "󰙅" },
       { "<leader>f", group = "+fuzzy find    | Telescope", icon = "" },
       { "<leader>g", group = "+git           | Neogit", icon = "" },
       { "<leader>d", group = "+dbt", icon = "󰆼" },
