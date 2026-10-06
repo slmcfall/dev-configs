@@ -44,10 +44,21 @@ keymap.set("n", "<leader>-", "<C-x>", { desc = "Decrement number" }) -- decremen
 keymap.set("n", "<leader>bs", ":%s/", { desc = "Search/Replace buffer" })
 keymap.set("n", ";", ":<C-f>", { desc = "CMD mode editor" })
 
+keymap.set("n", "ycc", "yygccp", { desc = "comment + duplicate line", remap = true })
+
+keymap.set("x", "/", "<Esc>/\\%V", { desc = "search only visual selection" })
+
+-- Swap Ctrl+I and Ctrl+O (jump list navigation)
+keymap.set("n", "<C-i>", "<C-o>", { noremap = true, desc = "Jump backward (swapped)" })
+keymap.set("n", "<C-o>", "<C-i>", { noremap = true, desc = "Jump forward (swapped)" })
+
 -------------
 -- BUFFERS --
 -------------
 keymap.set("n", "<leader>bb", "<cmd>b#<CR>", { desc = "Navigate to last accessed buffer" })
+
+keymap.set('n', '<leader>ya', 'mzggVGy`z',
+  { desc = "yank entire buffer, return cursor to original position", noremap = true, silent = true })
 
 ------------
 -- SPLITS --
@@ -73,7 +84,7 @@ keymap.set("n", "<leader>tp", "<cmd>tabp<CR>", { desc = "Go to previous tab" })
 ------------
 -- macros --
 ------------
-keymap.set("n", "<leader>ae", "<C-V>lllllljjxA<BS><ESC>jA<BS><ESC><cmd>w<CR>", { desc = "Format aws env var creds" })
+keymap.set("n", "<leader>ae", "<C-V>lllllljjxA<BS><ESC>jA<BS><ESC><cmd>w<CR><ESC>", { desc = "Format aws env var creds" })
 
 
 
@@ -125,7 +136,7 @@ local function open_run_buffer()
 end
 
 function _G.run_dbt_for_current_buffer(dbt_run_command, upstream, downstream)
-  dbt_run_command = dbt_run_command or "dbt run -m"
+  dbt_run_command = dbt_run_command or "dbt run -s"
   upstream = upstream or false
   downstream = downstream or false
 
@@ -139,23 +150,22 @@ function _G.run_dbt_for_current_buffer(dbt_run_command, upstream, downstream)
     model_name = model_name .. "+"
   end
 
-  local dbt_command = string.format('cd %s && poetry run %s %s --profiles-dir %s', buffer_dir, dbt_run_command,
+  local dbt_command = string.format('cd %s && clear && poetry run %s %s --profiles-dir %s', buffer_dir, dbt_run_command,
     model_name, buffer_dir)
   local escaped_command = dbt_command:gsub("'", "'\\''")
   local tmux_command = string.format(
-    "tmux split-window -v 'source ~/.zshrc; echo \"Running: %s\"; %s; echo \"Press enter to close\"; read'",
-    escaped_command,
+    "tmux popup 'source ~/.zshrc; %s; echo \"Press Ctrl+c to close\"; read'",
     escaped_command
   )
   vim.fn.system(tmux_command)
 end
 
 -- run
-vim.api.nvim_set_keymap('n', '<leader>drm', [[:lua run_dbt_for_current_buffer("dbt run -m")<CR>]],
+vim.api.nvim_set_keymap('n', '<leader>drm', [[:lua run_dbt_for_current_buffer("dbt run -s")<CR>]],
   { noremap = true, silent = true, desc = "model" })
-vim.api.nvim_set_keymap('n', '<leader>dru', [[:lua run_dbt_for_current_buffer("dbt run -m", true, false)<CR>]],
+vim.api.nvim_set_keymap('n', '<leader>dru', [[:lua run_dbt_for_current_buffer("dbt run -s", true, false)<CR>]],
   { noremap = true, silent = true, desc = "model + upstream" })
-vim.api.nvim_set_keymap('n', '<leader>drd', [[:lua run_dbt_for_current_buffer("dbt run -m", false, true)<CR>]],
+vim.api.nvim_set_keymap('n', '<leader>drd', [[:lua run_dbt_for_current_buffer("dbt run -s", false, true)<CR>]],
   { noremap = true, silent = true, desc = "model + downstream" })
 -- test
 vim.api.nvim_set_keymap('n', '<leader>dtm', [[:lua run_dbt_for_current_buffer("dbt test -s")<CR>]],
@@ -193,7 +203,7 @@ function _G.run_sqlfluff_for_current_buffer(sqlfluff_run_command, on_directory)
     model_name)
   local escaped_command = sqlfluff_command:gsub("'", "'\\''")
   local tmux_command = string.format(
-    "tmux split-window -v 'source ~/.zshrc; echo \"Running: %s\"; %s; echo \"Press enter to close\"; read'",
+    "tmux popup 'source ~/.zshrc; echo \"Running: %s\"; %s; echo \"Press Ctrl+c to close\"; read'",
     escaped_command,
     escaped_command
   )
@@ -211,3 +221,14 @@ vim.api.nvim_set_keymap('n', '<leader>dsff', [[:lua run_sqlfluff_for_current_buf
 
 vim.api.nvim_set_keymap('n', '<leader>dsfd', [[:lua run_sqlfluff_for_current_buffer("sqlfluff fix", true)<CR>]],
   { noremap = true, silent = true, desc = "sqlfluff fix current directory" })
+
+
+------
+---
+--- migration crap
+---
+vim.keymap.set('n', '<leader>rr', function()
+  vim.cmd([[%s/{raw_\(\w\+\)_catalog}\.\1_public_\(\w\+\) \(\w\+\)/{{ ref('stg_\2__\1') }} as \3/g]])
+  -- Print confirmation message
+  vim.api.nvim_echo({ { 'Transformed raw catalog references to ref format', 'Normal' } }, true, {})
+end, { desc = "Replace raw catalog refs with ref format" })

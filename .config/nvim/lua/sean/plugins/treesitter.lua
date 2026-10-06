@@ -7,6 +7,7 @@ return {
     -- ensure these language parsers are installed
     require("nvim-treesitter").install({
       "json",
+      "toml",
       "yaml",
       "markdown",
       "markdown_inline",
@@ -16,6 +17,8 @@ return {
       "dockerfile",
       "gitignore",
       "vimdoc",
+      "regex",
+      "ini",
       "sql",
       "python",
       "terraform",
@@ -35,7 +38,12 @@ return {
       group = vim.api.nvim_create_augroup("UserTreesitter", {}),
       callback = function(ev)
         if ev.match == "sql" and jinja_parser and vim.fs.root(ev.buf, { "dbt_project.yml" }) then
-          pcall(vim.treesitter.start, ev.buf, "dbt")
+          -- scheduled so it runs after snacks quickfile (BufReadPost) starts the plain sql parser
+          vim.schedule(function()
+            if vim.api.nvim_buf_is_valid(ev.buf) then
+              pcall(vim.treesitter.start, ev.buf, "dbt")
+            end
+          end)
           return
         end
         if pcall(vim.treesitter.start, ev.buf) then

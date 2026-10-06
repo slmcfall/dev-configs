@@ -1,6 +1,5 @@
 return {
   'saghen/blink.cmp',
-  lazy = false, -- lazy loading handled internally
   enabled = true,
   dependencies = {
     "rafamadriz/friendly-snippets",
@@ -25,21 +24,11 @@ return {
     appearance = {
       nerd_font_variant = 'mono'
     },
-    completion = {
-      menu = {
-        winhighlight =
-        'Normal:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder,CursorLine:BlinkCmpMenuSelection,Search:None',
-        border = 'padded',
-        scrollbar = false
-      },
-      documentation = {
-        window = {
-          min_width = 10,
-          max_width = 100,
-          max_height = 30,
-          border = 'single',
-        }
-      }
+    completion = { documentation = { auto_show = false } },
+    sources = {
+      default = { 'lsp', 'path', 'snippets', 'buffer' },
     },
+    fuzzy = { implementation = "prefer_rust_with_warning" }
   },
+  opts_extend = { "sources.default" }
 }

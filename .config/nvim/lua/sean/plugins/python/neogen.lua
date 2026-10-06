@@ -9,7 +9,6 @@ return {
       enabled = true,
     })
 
-    local opts = { noremap = true, silent = true }
-    vim.api.nvim_set_keymap("n", "<Leader>ld", ":lua require('neogen').generate()<CR>", opts)
+    vim.keymap.set("n", "<Leader>ld", function() require("neogen").generate() end, { noremap = true, silent = true })
   end,
 }
