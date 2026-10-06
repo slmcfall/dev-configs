@@ -19,12 +19,25 @@ return {
       "sql",
       "python",
       "terraform",
+      "jinja",
+      "jinja_inline",
     })
+
+    -- dbt models: parse as jinja, with sql injected into the text between tags
+    -- (queries live in queries/dbt/*.scm)
+    local jinja_parser = vim.api.nvim_get_runtime_file("parser/jinja.so", false)[1]
+    if jinja_parser then
+      vim.treesitter.language.add("dbt", { path = jinja_parser, symbol_name = "jinja" })
+    end
 
     -- enable syntax highlighting and indentation for any filetype with a parser
     vim.api.nvim_create_autocmd("FileType", {
       group = vim.api.nvim_create_augroup("UserTreesitter", {}),
       callback = function(ev)
+        if ev.match == "sql" and jinja_parser and vim.fs.root(ev.buf, { "dbt_project.yml" }) then
+          pcall(vim.treesitter.start, ev.buf, "dbt")
+          return
+        end
         if pcall(vim.treesitter.start, ev.buf) then
           vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
         end

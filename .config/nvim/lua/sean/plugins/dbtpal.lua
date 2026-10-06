@@ -25,6 +25,5 @@ return {
       protect_compiled_files = true,
     })
     require("telescope").load_extension("dbtpal")
-    vim.api.nvim_set_hl(0, 'dbtJinjaOperator', { fg = '#c53b53', bold = true })
   end,
 }

@@ -103,19 +103,15 @@ return {
     ---------
     -- DBT --
     ---------
+    -- https://github.com/j-clemons/dbt-language-server (binary in ~/.local/bin)
     vim.lsp.config("dbtls", {
-      cmd = { "dbt-language-server", "--stdio" },
+      cmd = { "dbt-language-server" },
       filetypes = { "sql", "yaml" },
-      root_markers = { "dbt_project.yml" },
-      init_options = {
-        pythonInfo = {
-          -- TODO: set this to hook into venv-selector
-          path =
-          '/Users/seanmcfall/Library/Caches/pypoetry/virtualenvs/mindoula-data-IMI5OIww-py3.12/bin/python'
-        },
-        lspMode = 'dbtProject',
-        enableSnowflakeSyntaxCheck = false
-      },
+      -- only attach inside a dbt project, not to every sql/yaml file
+      root_dir = function(bufnr, on_dir)
+        local root = vim.fs.root(bufnr, { "dbt_project.yml" })
+        if root then on_dir(root) end
+      end,
     })
     vim.lsp.enable("dbtls")
 
