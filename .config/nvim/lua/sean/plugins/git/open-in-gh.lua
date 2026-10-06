@@ -1,10 +1,10 @@
+-- open the current file/lines/repo on GitHub via snacks.gitbrowse
+-- (replaces openingh.nvim, which built shell commands from directory names)
 return {
-  "almo7aya/openingh.nvim",
-  event = "VeryLazy",
-  config = function()
-    vim.keymap.set("n", "<leader>gf", "<cmd>OpenInGHFile<cr>", { desc = "Open File in Github" })
-    vim.keymap.set("n", "<leader>gl", "<cmd>OpenInGHFileLines<cr>", { desc = "Open Lines in Github" })
-    vim.keymap.set("n", "<leader>gr", "<cmd>OpenInGHRepo<CR>", { desc = "Open Repo in Github" })
-  end,
-
+  "folke/snacks.nvim",
+  keys = {
+    { "<leader>gf", function() Snacks.gitbrowse({ what = "file" }) end, desc = "Open File in Github" },
+    { "<leader>gl", function() Snacks.gitbrowse({ what = "file" }) end, mode = { "n", "x" }, desc = "Open Lines in Github" },
+    { "<leader>gr", function() Snacks.gitbrowse({ what = "repo" }) end, desc = "Open Repo in Github" },
+  },
 }

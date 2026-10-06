@@ -150,8 +150,9 @@ function _G.run_dbt_for_current_buffer(dbt_run_command, upstream, downstream)
     model_name = model_name .. "+"
   end
 
-  local dbt_command = string.format('cd %s && clear && poetry run %s %s --profiles-dir %s', buffer_dir, dbt_run_command,
-    model_name, buffer_dir)
+  -- shellescape: file/dir names must never be interpreted by the shell
+  local dbt_command = string.format('cd %s && clear && poetry run %s %s --profiles-dir %s',
+    vim.fn.shellescape(buffer_dir), dbt_run_command, vim.fn.shellescape(model_name), vim.fn.shellescape(buffer_dir))
   local escaped_command = dbt_command:gsub("'", "'\\''")
   local tmux_command = string.format(
     "tmux popup 'source ~/.zshrc; %s; echo \"Press Ctrl+c to close\"; read'",
@@ -199,12 +200,14 @@ function _G.run_sqlfluff_for_current_buffer(sqlfluff_run_command, on_directory)
     model_name = string.sub(model_name, 7)
   end
 
-  local sqlfluff_command = string.format('cd %s && poetry run %s %s -v', buffer_dir, sqlfluff_run_command,
-    model_name)
+  -- shellescape: file/dir names must never be interpreted by the shell
+  local sqlfluff_command = string.format('cd %s && poetry run %s %s -v', vim.fn.shellescape(buffer_dir),
+    sqlfluff_run_command, vim.fn.shellescape(model_name))
   local escaped_command = sqlfluff_command:gsub("'", "'\\''")
+  local escaped_echo = vim.fn.shellescape("Running: " .. sqlfluff_command):gsub("'", "'\\''")
   local tmux_command = string.format(
-    "tmux popup 'source ~/.zshrc; echo \"Running: %s\"; %s; echo \"Press Ctrl+c to close\"; read'",
-    escaped_command,
+    "tmux popup 'source ~/.zshrc; echo %s; %s; echo \"Press Ctrl+c to close\"; read'",
+    escaped_echo,
     escaped_command
   )
   vim.fn.system(tmux_command)
