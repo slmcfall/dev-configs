@@ -1,23 +1,24 @@
 return {
-  require('nvim-web-devicons').setup {
+  "nvim-tree/nvim-web-devicons",
+  opts = {
     override = {
       toml = {
-        icon = "",
+        icon = "",
         color = "#AF5FD7",
         cterm_color = "134",
         name = "toml"
       },
       env_template = {
-        icon = "",
+        icon = "",
         color = "#AF5FD7",
         cterm_color = "134",
         name = "toml"
       },
       py = {
-        icon = "",
+        icon = "",
         color = "#F2D950",
         name = "Python"
       }
     },
-  }
+  },
 }

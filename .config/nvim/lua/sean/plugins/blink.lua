@@ -14,21 +14,21 @@ return {
     -- "lukas-reineke/cmp-under-comparator", -- sorts __python__ stuff correctly
     -- "hrsh7th/cmp-nvim-lsp-signature-help",
   },
-  version = 'v0.5.0',
+  version = '1.*',
   opts = {
     keymap = {
+      preset = 'default',
       ['<C-y>'] = { 'select_and_accept' },
       ['<C-k>'] = { 'select_prev', 'fallback' },
       ['<C-j>'] = { 'select_next', 'fallback' },
     },
     appearance = {
-      use_nvim_cmp_as_default = true,
       nerd_font_variant = 'mono'
     },
     completion = {
       menu = {
         winhighlight =
-        'bg:BlinkCmpMenu,bg:BlinkCmpMenuBorder,bg:BlinkCmpMenuSelection,Search:None',
+        'Normal:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder,CursorLine:BlinkCmpMenuSelection,Search:None',
         border = 'padded',
         scrollbar = false
       },

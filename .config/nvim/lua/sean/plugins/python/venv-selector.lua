@@ -3,10 +3,8 @@ return {
   ft = "python",
   dependencies = {
     "neovim/nvim-lspconfig",
-    { "nvim-telescope/telescope.nvim", branch = "0.1.x", dependencies = { "nvim-lua/plenary.nvim" } },
+    "nvim-telescope/telescope.nvim",
   },
-  -- lazy = false,
-  branch = "regexp", -- This is the regexp branch, use this for the new version
   config = function()
     local function on_venv_activate()
       local python_ = require("venv-selector").python()

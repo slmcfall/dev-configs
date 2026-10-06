@@ -1,7 +1,7 @@
 return {
   "danymat/neogen",
   version = "*",
-  enable = true,
+  enabled = true,
   config = function()
     local neogen = require("neogen")
 

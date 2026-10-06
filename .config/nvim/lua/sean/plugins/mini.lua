@@ -1,6 +1,6 @@
 return {
   {
-    "echasnovski/mini.nvim",
+    "nvim-mini/mini.nvim",
     config = function()
       require("mini.ai").setup({
         custom_textobjects = { -- Whole buffer
@@ -10,8 +10,8 @@ return {
       }) -- a(round)i(nner), not AI
       require("mini.surround").setup()
       require("mini.operators").setup()
+      vim.api.nvim_set_hl(0, 'MiniJump2dSpot', { fg = "#ff757f" })
       require("mini.jump2d").setup({
-        vim.api.nvim_set_hl(0, 'MiniJump2dSpot', { fg = "#ff757f" }),
         mappings = {
           start_jumping = '<C-f>',
         },

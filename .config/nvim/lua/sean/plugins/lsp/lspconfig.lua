@@ -1,21 +1,11 @@
 return {
-  "neovim/nvim-lspconfig",
+  "neovim/nvim-lspconfig", -- provides default server configs in lsp/*.lua for vim.lsp.config
   event = { "BufReadPre", "BufNewFile" },
-  cmd = { "LspInfo", "LspInstall", "LspUninstall" },
   dependencies = {
-    "williamboman/mason.nvim",
-    "williamboman/mason-lspconfig.nvim",
+    "mason-org/mason.nvim",
+    "mason-org/mason-lspconfig.nvim",
   },
   config = function()
-    -- import lspconfig plugin
-    local lspconfig = require("lspconfig")
-
-    -- import mason_lspconfig plugin
-    local mason_lspconfig = require("mason-lspconfig")
-
-    -- import cmp-nvim-lsp plugin
-    -- local cmp_nvim_lsp = require("cmp_nvim_lsp")
-
     local which_key = require("which-key")
 
     local keymap = vim.keymap -- for conciseness
@@ -31,7 +21,7 @@ return {
 
         -- set keybinds
         opts.desc = "Show line diagnostics"
-        keymap.set("n", "gl", "<cmd>lua vim.diagnostic.open_float(0, {scope='line'})<CR>", opts)
+        keymap.set("n", "gl", function() vim.diagnostic.open_float({ scope = "line" }) end, opts)
 
         opts.desc = "Show LSP references"
         keymap.set("n", "gR", "<cmd>Telescope lsp_references<CR>", opts) -- show definition, references
@@ -53,7 +43,7 @@ return {
         which_key.add(
           {
             { "<leader>l", group = "lsp", icon = "󰢱" },
-            { "<leader>lt", "<cmd>Telescope lsp_type_definitions<CR>", opts },
+            { "<leader>lt", "<cmd>Telescope lsp_type_definitions<CR>", buffer = ev.buf, desc = opts.desc },
           }
         )
 
@@ -61,7 +51,8 @@ return {
         keymap.set({ "n", "v" }, "ga", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
 
         opts.desc = "Smart rename"
-        keymap.set("n", "gr", vim.lsp.buf.rename, opts) -- smart rename
+        -- nowait: don't wait for nvim's default gr* LSP mappings (grn, gra, grr, gri, grt)
+        keymap.set("n", "gr", vim.lsp.buf.rename, vim.tbl_extend("force", opts, { nowait = true })) -- smart rename
 
         opts.desc = "Show buffer diagnostics"
         keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- show  diagnostics for file
@@ -70,30 +61,18 @@ return {
         keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts) -- show diagnostics for line
 
         opts.desc = "Go to previous diagnostic"
-        keymap.set("n", "[d", vim.diagnostic.goto_prev, opts) -- jump to previous diagnostic in buffer
+        keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, opts) -- jump to previous diagnostic in buffer
 
         opts.desc = "Go to next diagnostic"
-        keymap.set("n", "]d", vim.diagnostic.goto_next, opts) -- jump to next diagnostic in buffer
+        keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end, opts) -- jump to next diagnostic in buffer
 
         opts.desc = "Show documentation for what is under cursor"
         keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
 
         opts.desc = "Restart LSP"
-        keymap.set("n", "g!", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
+        keymap.set("n", "g!", "<cmd>lsp restart<CR>", opts) -- mapping to restart lsp if necessary
 
-        -- vim.api.nvim_create_autocmd("FileType", {
-        --   desc = "Comprehensively reformat Python with Ruff",
-        --   pattern = "python",
-        --   callback = function()
-        --     vim.lsp.buf.code_action {
-        --       context = { only = { 'source.fixAll' }, diagnostics = {} },
-        --       apply = true,
-        --     }
-        --     -- vim.lsp.buf.format { async = true }
-        --   end
-        -- })
-
-        if client.supports_method("textDocument/formatting") then
+        if client and client:supports_method("textDocument/formatting") then
           opts.desc = "Format buffer"
           -- general formatter
           vim.api.nvim_create_autocmd({ "BufWritePre" }, {
@@ -102,128 +81,81 @@ return {
               vim.lsp.buf.format({ async = false })
             end,
           })
-          -- vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-          --   pattern = { "*.py" },
-          --   -- buffer = ev.buf,
-          --   callback = function()
-          --     vim.lsp.buf.code_action {
-          --       context = { only = { 'source.organizeImports.ruff' }, diagnostics = {} },
-          --       apply = true,
-          --     }
-          --   end,
-          -- })
         end
       end,
     })
 
-    -- used to enable autocompletion (assign to every lsp server config)
-    -- local capabilities = cmp_nvim_lsp.default_capabilities()
-
     -- Change the Diagnostic symbols in the sign column (gutter)
-    -- (not in youtube nvim video)
-    local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
-    for type, icon in pairs(signs) do
-      local hl = "DiagnosticSign" .. type
-      vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-    end
+    local severity = vim.diagnostic.severity
+    vim.diagnostic.config({
+      signs = {
+        text = {
+          [severity.ERROR] = " ",
+          [severity.WARN] = " ",
+          [severity.HINT] = "󰠠 ",
+          [severity.INFO] = " ",
+        },
+      },
+    })
+
+    -- completion capabilities are added to every server by blink.cmp (vim.lsp.config("*"))
 
     ---------
     -- DBT --
     ---------
-    local configs = require('lspconfig.configs')
-
-    if not configs.dbtls then
-      configs.dbtls = {
-        default_config = {
-          root_dir = lspconfig.util.root_pattern('dbt_project.yml'),
-          cmd = { 'dbt-language-server', '--stdio' },
-          filetypes = { "sql", "yml", "yaml" },
-          init_options = {
-            pythonInfo = {
-              -- TODO: set this to hook into venv-selector (will probably need to use latest venv-selector branch)
-              path =
-              '/Users/seanmcfall/Library/Caches/pypoetry/virtualenvs/mindoula-data-IMI5OIww-py3.12/bin/python'
-            },
-            lspMode = 'dbtProject',
-            enableSnowflakeSyntaxCheck = false
-          }
+    vim.lsp.config("dbtls", {
+      cmd = { "dbt-language-server", "--stdio" },
+      filetypes = { "sql", "yaml" },
+      root_markers = { "dbt_project.yml" },
+      init_options = {
+        pythonInfo = {
+          -- TODO: set this to hook into venv-selector
+          path =
+          '/Users/seanmcfall/Library/Caches/pypoetry/virtualenvs/mindoula-data-IMI5OIww-py3.12/bin/python'
         },
-      }
-    end
+        lspMode = 'dbtProject',
+        enableSnowflakeSyntaxCheck = false
+      },
+    })
+    vim.lsp.enable("dbtls")
 
-    lspconfig.dbtls.setup {}
+    -- mason-managed servers are enabled automatically by mason-lspconfig (automatic_enable)
+    vim.lsp.config("ruff", {
+      filetypes = { "python" },
+    })
 
+    vim.lsp.config("jsonls", {
+      filetypes = { "json" },
+    })
 
-
-    mason_lspconfig.setup_handlers({
-      -- default handler for installed servers
-      function(server_name)
-        lspconfig[server_name].setup({
-          capabilities = capabilities,
-        })
-      end,
-
-      ["ruff"] = function()
-        -- configure ruff server
-        lspconfig["ruff"].setup({
-          capabilities = capabilities,
-          filetypes = { "python" },
-        })
-      end,
-
-      -- ["sqls"] = function()
-      --   -- configure ruff server
-      --   lspconfig["sqls"].setup({
-      --     capabilities = capabilities,
-      --     filetypes = { "sql" },
-      --   })
-      -- end,
-
-      ["jsonls"] = function()
-        -- configure ruff server
-        lspconfig["jsonls"].setup({
-          capabilities = capabilities,
-          filetypes = { "json" },
-        })
-      end,
-
-      ["pyright"] = function()
-        -- configure pyright server
-        lspconfig["pyright"].setup({
-          capabilities = capabilities,
-          filetypes = { "python" },
-          settings = {
-            pyright = {
-              -- Using Ruff's import organizer
-              disableOrganizeImports = true,
-            },
-            python = {
-              analysis = {
-                -- Ignore all files for analysis to exclusively use Ruff for linting
-                ignore = { '*' },
-              },
-            },
+    vim.lsp.config("pyright", {
+      filetypes = { "python" },
+      settings = {
+        pyright = {
+          -- Using Ruff's import organizer
+          disableOrganizeImports = true,
+        },
+        python = {
+          analysis = {
+            -- Ignore all files for analysis to exclusively use Ruff for linting
+            ignore = { '*' },
           },
-        })
-      end,
+        },
+      },
+    })
 
-      ["lua_ls"] = function()
-        -- configure lua server (with special settings)
-        lspconfig["lua_ls"].setup({
-          capabilities = capabilities,
-          settings = {
-            Lua = {
-              -- make the language server recognize "vim" global
-              diagnostics = {
-                globals = { "vim" },
-              },
-              completion = {
-                callSnippet = "Replace",
-              },
-            },
+    vim.lsp.config("lua_ls", {
+      settings = {
+        Lua = {
+          -- make the language server recognize "vim" global
+          diagnostics = {
+            globals = { "vim" },
           },
-        })
-      end,
+          completion = {
+            callSnippet = "Replace",
+          },
+        },
+      },
     })
   end,
 }
