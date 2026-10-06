@@ -1,5 +1,11 @@
 return {
   "mason-org/mason.nvim",
+  -- loaded after startup; servers are found via PATH (set in init) before then
+  event = "VeryLazy",
+  cmd = { "Mason", "MasonInstall", "MasonUninstall", "MasonUpdate", "MasonLog" },
+  init = function()
+    vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
+  end,
   dependencies = {
     "mason-org/mason-lspconfig.nvim",
   },
@@ -8,6 +14,7 @@ return {
     local mason_lspconfig = require("mason-lspconfig")
 
     mason.setup({
+      PATH = "skip", -- already prepended in init
       ui = {
         icons = {
           package_installed = "✓",

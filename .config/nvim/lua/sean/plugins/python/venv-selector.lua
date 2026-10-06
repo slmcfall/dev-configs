@@ -3,7 +3,6 @@ return {
   ft = "python",
   dependencies = {
     "neovim/nvim-lspconfig",
-    "nvim-telescope/telescope.nvim",
   },
   config = function()
     local function on_venv_activate()

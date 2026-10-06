@@ -28,4 +28,10 @@ require("lazy").setup({
       notify = false,
     },
     rocks = { enabled = false },
+    performance = {
+      rtp = {
+        -- unused built-in plugins (oil replaces netrw)
+        disabled_plugins = { "gzip", "netrwPlugin", "tarPlugin", "tohtml", "tutor", "zipPlugin" },
+      },
+    },
   })

@@ -8,6 +8,8 @@ return {
       auto_restore = true,
       lazy_support = true,
       suppressed_dirs = { "~/", "~/Dev/", "~/Downloads", "~/Documents", "~/Desktop/" },
+      -- don't load telescope at startup just to register the session-lens extension
+      session_lens = { load_on_setup = false },
     })
 
     vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
