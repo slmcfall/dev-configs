@@ -56,3 +56,6 @@ opt.laststatus = 3
 
 -- saves undo history
 opt.undofile = true
+
+-- skip the python3 provider (pynvim host lookup costs ~100ms when opening .py files)
+vim.g.loaded_python3_provider = 0
