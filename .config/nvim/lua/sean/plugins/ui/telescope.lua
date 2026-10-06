@@ -6,7 +6,6 @@ return {
     "nvim-tree/nvim-web-devicons",
     "folke/todo-comments.nvim",
     "debugloop/telescope-undo.nvim",
-    "olacin/telescope-cc.nvim",
     {
       "nvim-telescope/telescope-live-grep-args.nvim",
       version = "^1.0.0",
@@ -88,7 +87,6 @@ return {
 
     telescope.load_extension("fzf")
     telescope.load_extension("undo")
-    telescope.load_extension("conventional_commits")
     telescope.load_extension("live_grep_args")
 
     --
@@ -126,7 +124,6 @@ return {
     keymap.set("n", "<leader>f/", builtin.current_buffer_fuzzy_find, { desc = "Current buffer fuzzy find" })
     -- utility
     keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find todos" })
-    keymap.set("n", "<leader>gc", "<cmd>Telescope conventional_commits<cr>", { desc = "Commit w/ conventional commit" })
     keymap.set("n", "<leader>fu", "<cmd>Telescope undo<cr>", { desc = "Search vim undotree" })
     -- keymap.set("n", "<leader>fd", "<cmd>lua require('dbtpal.telescope').dbt_picker()<cr>",
     --   { desc = "Find dbt models" })
