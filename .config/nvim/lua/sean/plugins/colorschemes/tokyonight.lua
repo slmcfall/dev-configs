@@ -38,7 +38,7 @@ return { -- neomodern
           c.fg_sidebar = colors.fg_dark
         end,
         on_highlights = function(hl)
-          -- dbt/jinja {{ }} (queries/dbt/highlights.scm)
+          -- dbt/jinja {{ }} and {% %} (queries/dbt/highlights.scm)
           hl["@punctuation.special.braces.dbt"] = { fg = "#FF4A4A", bold = true }
         end,
       })
